@@ -30,7 +30,7 @@ transform = Transform( 1, 0, 0, 0, 0.0644279, 0.997922, 0, -0.997922, 0.0644279,
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.566531, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6411, 0.566531, 0.0538288 )
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
