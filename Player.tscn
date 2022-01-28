@@ -37,7 +37,7 @@ transform = Transform( 1, 0, 0, 0, 0.865073, 0.501647, 0, -0.501647, 0.865073, 0
 curve = SubResource( 2 )
 
 [node name="SpawnLocation" type="PathFollow" parent="Cam/SpawnPath"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.81317, 0.0674591, -7.64272 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.6257, 0.0674596, -33.3215 )
 
 [node name="FrustumReference" type="Spatial" parent="."]
 visible = false

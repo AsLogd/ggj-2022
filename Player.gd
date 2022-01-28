@@ -45,7 +45,11 @@ func _physics_process(delta):
 	
 func _process(delta):
 	current_damage = max_damage * (max_hp / current_hp)
-	emit_signal("update_health_and_damage", (max_hp / current_hp))
+	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
+	
+func hit(damage):
+	current_hp -= damage
+	print(current_hp)
 
 func _on_change_health_timeout():
 	print("test")
