@@ -16,6 +16,9 @@ var velocity = Vector3.ZERO
 var player
 
 
+func hit(damage):
+	print("HITOSHI")
+	
 func _ready():
 	add_to_group("ENEMIES")
 
