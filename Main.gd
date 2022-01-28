@@ -9,14 +9,7 @@ func _ready():
 func _on_MobTimer_timeout():
 	# Create a Mob instance and add it to the scene.
 	var mob = mob_scene.instance()
-
-	# Choose a random location on Path2D.
-	# We store the reference to the SpawnLocation node.
-	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
-	# And give it a random offset.
-	mob_spawn_location.unit_offset = randf()
-
+	var out_coords = get_node("Player").get_outside_coords()
 	var player_position = $Player.transform.origin
-
 	add_child(mob)
-	mob.initialize(mob_spawn_location.translation, player_position)
+	mob.initialize(out_coords, player_position)

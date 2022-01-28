@@ -33,3 +33,9 @@ func _physics_process(delta):
 	velocity.y -= fall_acceleration * delta
 	# Moving the character
 	velocity = move_and_slide(velocity, Vector3.UP)
+
+func get_outside_coords():
+	var mob_spawn_location = get_node("Cam/SpawnPath/SpawnLocation")
+	# And give it a random offset.
+	mob_spawn_location.unit_offset = randf()
+	return mob_spawn_location.translation + transform.origin
