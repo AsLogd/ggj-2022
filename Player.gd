@@ -5,7 +5,16 @@ export var speed = 14
 # The downward acceleration when in the air, in meters per second squared.
 export var fall_acceleration = 75
 
+export var max_damage = 150
+export var max_hp = 100
+
+var current_hp = max_hp
+var current_damage = 0
+
 var velocity = Vector3.ZERO
+var rng = RandomNumberGenerator.new()
+
+signal update_health_and_damage(new_damage, new_health)
 
 func _physics_process(delta):
 	# We create a local variable to store the input direction.
@@ -33,3 +42,10 @@ func _physics_process(delta):
 	velocity.y -= fall_acceleration * delta
 	# Moving the character
 	velocity = move_and_slide(velocity, Vector3.UP)
+	
+func _process(delta):
+	current_damage = max_damage * (max_hp / current_hp)
+	emit_signal("update_health_and_damage", (max_hp / current_hp))
+
+func _on_change_health_timeout():
+	print("test")
