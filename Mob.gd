@@ -16,6 +16,9 @@ var velocity = Vector3.ZERO
 var player
 
 
+func _ready():
+	add_to_group("ENEMIES")
+
 func _physics_process(_delta):
 	move_and_slide(velocity)
 

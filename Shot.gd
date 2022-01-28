@@ -4,6 +4,9 @@ const SPEED = 0.3
 
 var velocity = Vector3.ZERO
 
+func _ready():
+	add_to_group("BULLETS")
+
 func _physics_process(_delta):
 	var col = move_and_collide(velocity)
 	if col != null:
