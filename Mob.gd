@@ -7,7 +7,7 @@ const speed = 10
 const MAX_TIME_TO_CHANGE_DIRECTION = 1
 const MIN_TIME_TO_CHANGE_DIRECTION = 3
 
-const TIME_BETWEEN_SHOTS = 0.6
+const TIME_BETWEEN_SHOTS = 1
 
 var time_to_change_direction = -1
 var time_to_shot = TIME_BETWEEN_SHOTS
@@ -15,11 +15,13 @@ var time_to_shot = TIME_BETWEEN_SHOTS
 var velocity = Vector3.ZERO
 var player
 
-var hp = 100
-var max_hp = 100
+const max_hp = 100
+var hp = max_hp
 
 func hit(damage):
-	print("HITOSHI")
+	hp -= damage
+	if hp <= 0:
+		queue_free()
 	
 func _ready():
 	add_to_group("ENEMIES")
@@ -27,11 +29,9 @@ func _ready():
 func _physics_process(_delta):
 	move_and_slide(velocity)
 
-func initialize(start_position, the_player, initial_hp):
+func initialize(start_position, the_player):
 	translation = start_position
 	player = the_player
-	hp = initial_hp
-	max_hp = initial_hp
 
 func _process(delta):
 	time_to_change_direction-= delta;

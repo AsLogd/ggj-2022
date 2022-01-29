@@ -8,6 +8,7 @@ export var speed = 14
 export var fall_acceleration = 75
 
 export var max_damage = 150
+export var heal_per_second = 5
 export var max_hp = 100
 
 # In seconds
@@ -93,11 +94,10 @@ func _physics_process(delta):
 	speed_multiplier = 1.0
 	
 func _process(delta):
-	current_damage = max_damage * (max_hp / current_hp)
+	current_damage = max_damage - (max_damage * (current_hp/float(max_hp))) + 1
 	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
 	
 func hit(damage):
-	print("asdfasdf")
 	if dash_left <= 0.0:
 		current_hp -= damage
 

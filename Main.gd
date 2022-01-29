@@ -12,6 +12,7 @@ func _ready():
 	get_node("EnemyLabel").add_color_override("font_color", Color(0,0,0,1))
 	get_node("BulletLabel").add_color_override("font_color", Color(0,0,0,1))
 	randomize()
+	get_node("Spawner").spawn()
 
 func _on_MobTimer_timeout():
 	get_node("Spawner").spawn()
