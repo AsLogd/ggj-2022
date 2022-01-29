@@ -30,7 +30,8 @@ var rng = RandomNumberGenerator.new()
 
 var shot_cooldown = -1
 
-var current_direction =  Vector3.ZERO
+var current_direction = Vector3.ZERO
+var last_mouse_position = null
 
 signal update_health_and_damage(new_damage, new_health)
 
@@ -56,14 +57,24 @@ func _physics_process(delta):
 	shot_cooldown -= delta
 
 	var mouse_pos = get_viewport().get_mouse_position()
-	var camera = get_node("Cam/Camera")
-	var from = camera.project_ray_origin(mouse_pos)
-	var to = from + camera.project_ray_normal(mouse_pos) * 10000
-	var cursorPos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
-	var target = get_node("Target")
-	target.global_transform.origin = cursorPos
-	$animated_fish.look_at(cursorPos, Vector3.UP)
-
+	if last_mouse_position != null and (last_mouse_position - mouse_pos).length() > .1:
+		var camera = get_node("Cam/Camera")
+		var from = camera.project_ray_origin(mouse_pos)
+		var to = from + camera.project_ray_normal(mouse_pos) * 10000
+		var cursorPos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+		var target = get_node("Target")
+		target.global_transform.origin = cursorPos
+		$animated_fish.look_at(cursorPos, Vector3.UP)
+	
+	last_mouse_position = mouse_pos
+	
+	var look_at_z = Input.get_axis("attack_forward", "attack_back")
+	var look_at_x = Input.get_axis("attack_left", "attack_right")
+	
+	if look_at_z != 0 and look_at_x != 0:
+		var look_at = Vector3(look_at_x, global_transform.origin.y, look_at_z)
+		var look_at_target = global_transform.origin + look_at
+		$animated_fish.look_at(look_at_target, Vector3.UP)
 
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("move_right"):
@@ -77,6 +88,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= 1
 
+	var x_axis = Input.get_axis("move_left", "move_right")
+	var z_axis = Input.get_axis("move_forward", "move_back")
+	
+	if x_axis != 0 and z_axis != 0:
+		direction.x = x_axis
+		direction.z = z_axis
+	
 	if Input.is_action_pressed("dash") and dash_available:
 		dash_cooldown = dash_refresh
 		dash_left = dash_duration
