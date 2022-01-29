@@ -19,4 +19,4 @@ func _on_MobTimer_timeout():
 	var out_coords = get_node("Player").get_outside_coords()
 	var player_position = $Player.transform.origin
 	add_child(mob)
-	mob.initialize(out_coords, $Player)
+	mob.initialize(out_coords, $Player, 5)

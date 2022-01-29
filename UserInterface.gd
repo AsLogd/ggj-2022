@@ -23,6 +23,6 @@ func _on_update_health_and_damage(new_ratio):
 	update()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	for enemy in get_node("/root/").get_tree().get_nodes_in_group("ENEMIES"):
-		print(get_global_transform_with_canvas())
+# func _process(delta):
+#	for enemy in get_node("/root/").get_tree().get_nodes_in_group("ENEMIES"):
+#		print(get_global_transform_with_canvas())
