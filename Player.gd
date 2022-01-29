@@ -60,22 +60,22 @@ func _physics_process(delta):
 	
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("move_right"):
-		direction.x += 1
+		direction.z -= 1
 	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
+		direction.z += 1
 	if Input.is_action_pressed("move_back"):
 		# Notice how we are working with the vector's x and z axes.
 		# In 3D, the XZ plane is the ground plane.
-		direction.z += 1
+		direction.x += 1
 	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
+		direction.x -= 1
 
 	var x_axis = Input.get_axis("move_left", "move_right")
-	var z_axis = Input.get_axis("move_forward", "move_back")
+	var z_axis = Input.get_axis("move_back", "move_forward")
 	
 	if x_axis != 0 and z_axis != 0:
-		direction.x = x_axis
-		direction.z = z_axis
+		direction.z = x_axis
+		direction.x = z_axis
 	
 	if Input.is_action_pressed("dash") and dash_available:
 		dash_cooldown = dash_refresh
@@ -95,7 +95,7 @@ func _physics_process(delta):
 
 	velocity.x = direction.x * speed * speed_multiplier
 	velocity.z = direction.z * speed * speed_multiplier
-	# Vertical velocity
+	# Vertical velocitys
 	velocity.y -= fall_acceleration * delta
 	# Moving the character
 	velocity = move_and_slide(velocity, Vector3.UP)
@@ -115,8 +115,8 @@ func target_and_shoot():
 		
 	last_mouse_position = mouse_pos
 		
-	var look_at_z = Input.get_axis("attack_forward", "attack_back")
-	var look_at_x = Input.get_axis("attack_left", "attack_right")
+	var look_at_x = Input.get_axis("attack_back", "attack_forward")
+	var look_at_z = Input.get_axis("attack_left", "attack_right")
 	
 	if look_at_z != 0 and look_at_x != 0:
 		look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
