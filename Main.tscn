@@ -33,35 +33,27 @@ script = ExtResource( 5 )
 
 [node name="topleft" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7742, 0.44274, -15.8676 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="topright" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.746, 0.44274, -23.3944 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="bottomleft" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5641, 0.44274, 19.0229 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="bottomright" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9536, 0.44275, 20.472 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="bottom" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.855788, 0.44275, 20.5582 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="top" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90386, 0.44275, -20.0747 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="left" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.8435, 0.44275, -0.499842 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="right" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.967, 0.44275, -0.499842 )
-to_spawn_scene = ExtResource( 2 )
 
 [node name="Wall" type="StaticBody" parent="Map"]
 transform = Transform( 0.635986, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -0.367842, 1.53411, -48.3148 )

@@ -36,8 +36,8 @@ signal update_health_and_damage(new_damage, new_health)
 
 signal dies
 func _ready():
-	get_node("Pivot/animated_fish/RootNode/AnimationPlayer").get_animation("Take 001").set_loop(true)
-	get_node("Pivot/animated_fish/RootNode/AnimationPlayer").play("Take 001")
+	get_node("animated_fish/RootNode/AnimationPlayer").get_animation("Take 001").set_loop(true)
+	get_node("animated_fish/RootNode/AnimationPlayer").play("Take 001")
 
 func _physics_process(delta):
 	if(dead):
@@ -81,12 +81,12 @@ func _physics_process(delta):
 			shot_cooldown = SHOOT_COOLDOWN
 			var shot = player_shot_scene.instance()
 			get_tree().get_root().add_child(shot)
-			shot.initialize(translation, $Pivot.transform.origin + current_direction, current_damage)
+			shot.initialize(translation, $animated_fish.transform.origin + current_direction, current_damage)
 
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
-		$Pivot.look_at(current_direction, Vector3.UP)
+		$animated_fish.look_at(current_direction, Vector3.UP)
 
 	velocity.x = direction.x * speed * speed_multiplier
 	velocity.z = direction.z * speed * speed_multiplier

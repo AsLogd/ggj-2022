@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://art/mob.glb" type="PackedScene" id=1]
+[ext_resource path="res://Mob.gd" type="Script" id=2]
+[ext_resource path="res://Shot.tscn" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.732912, 0.433948, 1 )
+
+[node name="Mob" type="KinematicBody"]
+transform = Transform( 1.64815, 0, 0, 0, 1.64815, 0, 0, 0, 1.64815, 0, 0, 0 )
+collision_layer = 9
+collision_mask = 9
+script = ExtResource( 2 )
+shot_scene = ExtResource( 3 )
+enemy_type = 1
+
+[node name="Pivot" type="Spatial" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource( 1 )]
+
+[node name="Pivot2" type="Spatial" parent="."]
+transform = Transform( -0.999987, 0, -0.00509633, 0, 1, 0, 0.00509633, 0, -0.999987, 0, 0, 0 )
+
+[node name="Character" parent="Pivot2" instance=ExtResource( 1 )]
+
+[node name="Pivot2" type="Spatial" parent="Pivot2"]
+transform = Transform( -0.0276251, 0, -0.999618, 0, 1, 0, 0.999618, 0, -0.0276251, 0, 0, 0 )
+
+[node name="Character" parent="Pivot2/Pivot2" instance=ExtResource( 1 )]
+
+[node name="Pivot2" type="Spatial" parent="Pivot2/Pivot2"]
+transform = Transform( -0.999987, 0, -0.00509633, 0, 1, 0, 0.00509633, 0, -0.999987, 0, 0, 0 )
+
+[node name="Character" parent="Pivot2/Pivot2/Pivot2" instance=ExtResource( 1 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )

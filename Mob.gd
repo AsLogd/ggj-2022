@@ -1,6 +1,7 @@
 extends KinematicBody
 
 export (PackedScene) var shot_scene
+export var enemy_type = 0
 
 const speed = 10
 
@@ -56,9 +57,8 @@ func _process(delta):
 	if time_to_shot < 0:
 		if transform.origin.distance_to(player.transform.origin) < MIN_DISTANCE_TO_SHOT:
 			time_to_shot += TIME_BETWEEN_SHOTS
-			var shot = shot_scene.instance()
-			get_tree().get_root().add_child(shot)
-			shot.initialize(translation, player.transform.origin, 0)
+			shot()
+
 	else:
 		time_to_shot -= delta;
 
@@ -67,3 +67,15 @@ func _on_Main_game_start():
 
 func _on_Main_game_over():
 	stop = true
+
+func shot():
+	if enemy_type == 0:
+		var shot = shot_scene.instance()
+		get_tree().get_root().add_child(shot)
+		shot.initialize(translation, player.transform.origin, 0)
+	else:
+		for n in range(0,360,45):
+			var shot = shot_scene.instance()
+			get_tree().get_root().add_child(shot)
+			shot.initialize(translation, translation + Vector3.FORWARD.rotated(Vector3.UP, n*TAU/360.0), 0)
+			

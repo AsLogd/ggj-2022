@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://art/animated_fish_Cuerpo_Smoothness.jpg" type="Texture" id=1]
+[ext_resource path="res://art/animated_fish_Cuerpo_AlbedoTransparency.jpg" type="Texture" id=2]
+[ext_resource path="res://art/animated_fish.fbx" type="PackedScene" id=3]
+[ext_resource path="res://art/animated_fish_ojos_AlbedoTransparency.jpg" type="Texture" id=4]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 2 )
+roughness_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 4 )
+roughness = 0.0
+
+[node name="animated_fish" instance=ExtResource( 3 )]
+transform = Transform( 2.08976, 0, 0, 0, 2.08976, 0, 0, 0, 2.08976, 0, 0, 0 )
+
+[node name="RootNode" parent="." index="0"]
+transform = Transform( 0.032569, 0, 2.99038, 0, 2.99056, 0, -2.99038, 0, 0.032569, 0, 0, 0 )
+
+[node name="Fish" parent="RootNode" index="0"]
+material/0 = SubResource( 1 )
+material/1 = SubResource( 2 )
+
+[node name="ctrl_1" parent="RootNode" index="1"]
+transform = Transform( 0.0273235, -0.710609, 0.00188714, 0.0842448, 0.00511451, 0.706111, -0.7056, -0.0269068, 0.0843789, -0.0136903, -0.000378397, -0.00023867 )
+
+[node name="ctrl_2" parent="RootNode/ctrl_1" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47177e-18, -0.00800628, 0.00500168 )
+
+[node name="ctrl_3" parent="RootNode/ctrl_1/ctrl_2" index="0"]
+transform = Transform( 0.999985, 1.71337e-05, -0.00555031, -1.76575e-05, 1, -9.43263e-05, 0.00555031, 9.44229e-05, 0.999985, -1.39132e-18, -0.00794494, 3.33067e-18 )
+
+[node name="ctrl_4" parent="RootNode/ctrl_1/ctrl_2/ctrl_3" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.24447e-19, -0.00817641, 0 )
+
+[node name="ctrl_5" parent="RootNode/ctrl_1/ctrl_2/ctrl_3/ctrl_4" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53466e-18, -0.013145, 0 )
