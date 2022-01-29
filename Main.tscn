@@ -84,7 +84,6 @@ transform = Transform( 0.635986, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -0.367842
 
 [node name="StaticBody" type="StaticBody" parent="Map"]
 transform = Transform( 35.479, 0, -0.965948, 0, 35.4756, 0, -0.965947, 0, 304.137, 120.023, -2.17602, -27.6285 )
-
 collision_layer = 15
 collision_mask = 15
 
@@ -152,6 +151,33 @@ material = SubResource( 3 )
 margin_right = 40.0
 margin_bottom = 14.0
 text = "Enemies: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchor_left = 0.492
+anchor_top = 0.957
+anchor_right = 0.492
+anchor_bottom = 0.957
+margin_top = -6.0
+margin_right = 40.0
+margin_bottom = 2.0
+text = "0000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MultiLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.975
+anchor_right = 0.51
+anchor_bottom = 0.988
+margin_left = -8.0
+margin_top = -4.0
+margin_right = -12.0
+margin_bottom = 14.0
+text = "x10"
 __meta__ = {
 "_edit_use_anchors_": false
 }

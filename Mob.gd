@@ -26,6 +26,8 @@ var stop = false
 func hit(damage):
 	hp -= damage
 	if hp <= 0:
+		var main = get_node("/root/Main")
+		main.add_score(100 if enemy_type == 0 else 300)
 		queue_free()
 	
 func _ready():
