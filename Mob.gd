@@ -18,6 +18,9 @@ var player
 var hp = 100
 var max_hp = 100
 
+func hit(damage):
+	print("HITOSHI")
+	
 func _ready():
 	add_to_group("ENEMIES")
 

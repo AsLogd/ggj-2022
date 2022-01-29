@@ -1,5 +1,7 @@
 extends KinematicBody
 
+export (PackedScene) var player_shot_scene
+
 # How fast the player moves in meters per second.
 export var speed = 14
 # The downward acceleration when in the air, in meters per second squared.
@@ -13,6 +15,8 @@ export var dash_refresh = 5
 export var dash_multiplier = 10
 export var dash_duration = 0.1
 
+const SHOOT_COOLDOWN = 0.3
+
 var current_hp = max_hp
 var current_damage = 0
 var dash_available = true
@@ -21,6 +25,10 @@ var dash_left = 0
 
 var velocity = Vector3.ZERO
 var rng = RandomNumberGenerator.new()
+
+var shot_cooldown = -1
+
+var current_direction =  Vector3.ZERO
 
 signal update_health_and_damage(new_damage, new_health)
 
@@ -35,6 +43,8 @@ func _physics_process(delta):
 		if dash_cooldown <= 0.0:
 			dash_available = true
 
+	shot_cooldown -= delta
+
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
@@ -46,6 +56,7 @@ func _physics_process(delta):
 		direction.z += 1
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= 1
+
 	if Input.is_action_pressed("dash") and dash_available:
 		dash_cooldown = dash_refresh
 		dash_left = dash_duration
@@ -55,10 +66,18 @@ func _physics_process(delta):
 
 	if dash_left >= 0.0:
 		speed_multiplier = dash_multiplier
+		
+	if Input.is_action_pressed("attack"):
+		if shot_cooldown <= 0:
+			shot_cooldown = SHOOT_COOLDOWN
+			var shot = player_shot_scene.instance()
+			get_tree().get_root().add_child(shot)
+			shot.initialize(translation, $Pivot.transform.origin + current_direction, current_damage)
 
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
-		$Pivot.look_at(translation + direction, Vector3.UP)
+		current_direction = translation + direction
+		$Pivot.look_at(current_direction, Vector3.UP)
 
 	velocity.x = direction.x * speed * speed_multiplier
 	velocity.z = direction.z * speed * speed_multiplier
