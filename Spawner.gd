@@ -25,7 +25,6 @@ func spawn():
 		wave_spawned = wave_spawned + 1
 			
 func _ready():
-
 	# Sets up wave timer.
 	wave_timer = Timer.new()
 	wave_timer.set_one_shot(true)
