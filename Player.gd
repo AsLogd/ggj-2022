@@ -21,6 +21,7 @@ const SHOOT_COOLDOWN = 0.3
 var dead = true
 var current_hp = max_hp
 var current_damage = 0
+
 var dash_available = true
 var dash_cooldown = 0
 var dash_left = 0
@@ -36,12 +37,12 @@ var last_look_direction = null
 var last_look_at = null
 
 signal update_health_and_damage(new_damage, new_health)
+signal update_dash_cd()
 
 signal dies
 func _ready():
 	get_node("animated_fish/RootNode/AnimationPlayer").get_animation("Take 001").set_loop(true)
 	get_node("animated_fish/RootNode/AnimationPlayer").play("Take 001")
-
 
 func _physics_process(delta):
 	if(dead):
@@ -153,10 +154,13 @@ func _process(delta):
 	if !dead and current_hp < max_hp:
 		current_hp += heal_per_second*delta
 		if current_hp > max_hp:
-			current_hp = max_hp
+			current_hp = max_hp	
 	
 	current_damage = max_damage - (max_damage * (current_hp/float(max_hp))) + 1
 	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
+	
+	if dash_cooldown > 0.0:
+		emit_signal("update_dash_cd", (float(dash_refresh) - dash_cooldown) / float(dash_refresh))
 	
 func hit(damage):
 	if dash_left <= 0.0:
