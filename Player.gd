@@ -39,6 +39,7 @@ func _ready():
 	get_node("animated_fish/RootNode/AnimationPlayer").get_animation("Take 001").set_loop(true)
 	get_node("animated_fish/RootNode/AnimationPlayer").play("Take 001")
 
+
 func _physics_process(delta):
 	if(dead):
 		return
@@ -53,6 +54,16 @@ func _physics_process(delta):
 			dash_available = true
 
 	shot_cooldown -= delta
+
+	var mouse_pos = get_viewport().get_mouse_position()
+	var camera = get_node("Cam/Camera")
+	var from = camera.project_ray_origin(mouse_pos)
+	var to = from + camera.project_ray_normal(mouse_pos) * 10000
+	var cursorPos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+	var target = get_node("Target")
+	target.global_transform.origin = cursorPos
+	$animated_fish.look_at(cursorPos, Vector3.UP)
+
 
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("move_right"):
@@ -81,12 +92,11 @@ func _physics_process(delta):
 			shot_cooldown = SHOOT_COOLDOWN
 			var shot = player_shot_scene.instance()
 			get_tree().get_root().add_child(shot)
-			shot.initialize(translation, $animated_fish.transform.origin + current_direction, current_damage)
+			shot.initialize(translation, $animated_fish.transform.origin - $animated_fish.transform.basis.z, current_damage)
 
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
-		$animated_fish.look_at(current_direction, Vector3.UP)
 
 	velocity.x = direction.x * speed * speed_multiplier
 	velocity.z = direction.z * speed * speed_multiplier
