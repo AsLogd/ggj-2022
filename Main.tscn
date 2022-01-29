@@ -20,7 +20,7 @@ script = ExtResource( 3 )
 mob_scene = ExtResource( 2 )
 
 [node name="Wall" type="StaticBody" parent="."]
-transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, 0, 1.53411, -29.262 )
+transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, 0, 1.53411, -48.3148 )
 collision_layer = 15
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall"]
@@ -31,7 +31,7 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Wall2" type="StaticBody" parent="."]
-transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, 0, 1.53411, 29.1577 )
+transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -1.84168, 1.53411, 48.8251 )
 collision_layer = 15
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall2"]
@@ -42,10 +42,11 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Wall3" type="StaticBody" parent="."]
-transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, -30.0677, 1.53411, -1.1177 )
+transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, -100.708, 1.53411, -1.1177 )
 collision_layer = 15
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall3"]
+transform = Transform( 1, 0, -1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall3"]
@@ -53,13 +54,15 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Wall4" type="StaticBody" parent="."]
-transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, 30.0674, 1.53411, -1.1177 )
+transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, 99.3582, 1.53411, -1.1177 )
 collision_layer = 15
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall4"]
+transform = Transform( 1, 0, -1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall4"]
+transform = Transform( 1, 0, -1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -118,19 +121,19 @@ __meta__ = {
 script = ExtResource( 5 )
 
 [node name="topleft" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.176, 2.36551, -29.1691 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.176, 0.44274, -29.1691 )
 to_spawn_scene = ExtResource( 2 )
 
 [node name="topright" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.1153, 2.36551, -29.1691 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.1153, 0.44274, -29.1691 )
 to_spawn_scene = ExtResource( 2 )
 
 [node name="bottomleft" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.176, 2.36551, 27.4057 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.176, 0.44274, 27.4057 )
 to_spawn_scene = ExtResource( 2 )
 
 [node name="bottomright" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.4117, 2.36552, 32.9849 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.4117, 0.44275, 32.9849 )
 to_spawn_scene = ExtResource( 2 )
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
