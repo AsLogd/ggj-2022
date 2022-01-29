@@ -12,11 +12,18 @@ const MIN_DISTANCE_TO_SHOT = 55.0
 
 const TIME_BETWEEN_SHOTS = 1
 
+export var TIME_BETWEEN_MOVEMENT_PATTERN = 2
+
 var time_to_change_direction = -1
 var time_to_shot = TIME_BETWEEN_SHOTS
 
+var time_to_change_movement_pattern = TIME_BETWEEN_MOVEMENT_PATTERN
+var movement_pattern = MovementPattern.RANDOM_MOVE
+
 var velocity = Vector3.ZERO
 var player
+
+enum MovementPattern { RANDOM_MOVE, TOWARDS_PLAYER }
 
 const max_hp = 40
 var hp = max_hp
@@ -60,9 +67,11 @@ func _process(delta):
 		if transform.origin.distance_to(player.transform.origin) < MIN_DISTANCE_TO_SHOT:
 			time_to_shot += TIME_BETWEEN_SHOTS
 			shot()
-
 	else:
 		time_to_shot -= delta;
+		
+	if time_to_change_movement_pattern < 0:
+		movement_pattern = MovementPattern.values()[randi()%MovementPattern.values().size()]
 
 func _on_Main_game_start():
 	queue_free()
