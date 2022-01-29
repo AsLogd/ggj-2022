@@ -27,6 +27,7 @@ transform = Transform( 1, 0, 0, 0, 0.865073, -0.501647, 0, 0.501647, 0.865073, 0
 
 [node name="Camera" type="Camera" parent="Cam"]
 transform = Transform( 1, 0, 0, 0, 0.15459, 0.987978, 0, -0.987978, 0.15459, 0, 23.4306, -8.88977 )
+current = true
 
 [node name="Target" type="Position3D" parent="."]
 

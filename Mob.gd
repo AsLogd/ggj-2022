@@ -25,8 +25,8 @@ var player
 
 enum MovementPattern { RANDOM_MOVE, TOWARDS_PLAYER }
 
-const max_hp = 40
-var hp = max_hp
+export var base_max_hp = 40
+var hp = base_max_hp
 
 var stop = false
 
@@ -48,9 +48,11 @@ func _physics_process(_delta):
 		return
 	move_and_slide(velocity)
 
-func initialize(start_position, the_player):
+func initialize(start_position, the_player, a_enemy_type = 0, hp_mult = 1):
 	translation = start_position
 	player = the_player
+	hp = base_max_hp * hp_mult
+	enemy_type = a_enemy_type
 
 func _process(delta):
 	if(stop):

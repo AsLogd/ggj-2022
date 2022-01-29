@@ -5,6 +5,13 @@ export (PackedScene) var mob_scene
 export var mobs_per_wave = 10
 export var wave_interval = 30
 export var grace_interval = 5
+export var base_elite_chance = 0.1
+
+# Scaling settings
+## Extra health scaling (%) per wave level
+export var health_scaling_per_level = 0.05
+## Extra elite chance per wave level
+export var elite_chance_scaling = 0.1
 
 var notice_label
 
@@ -21,7 +28,9 @@ func spawn():
 		var child = children[randi() % children.size()]
 		while child.get_class() != "Spatial":
 			child = children[randi() % children.size()]
-		child.spawn()
+		var health_mult = 1 + health_scaling_per_level*wave_count
+		var elite_chance = min(elite_chance_scaling * wave_count, 1)
+		child.spawn(health_mult, elite_chance)
 		wave_spawned = wave_spawned + 1
 			
 func _ready():
