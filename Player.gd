@@ -50,8 +50,3 @@ func _process(delta):
 func _on_change_health_timeout():
 	print("test")
 
-func get_outside_coords():
-	var mob_spawn_location = get_node("Cam/SpawnPath/SpawnLocation")
-	# And give it a random offset.
-	mob_spawn_location.unit_offset = randf()
-	return mob_spawn_location.translation + transform.origin
