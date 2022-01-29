@@ -16,6 +16,9 @@ var velocity = Vector3.ZERO
 var player
 
 
+func hit(damage):
+	print("HITOSHI")
+	
 func _ready():
 	add_to_group("ENEMIES")
 
@@ -39,5 +42,5 @@ func _process(delta):
 		time_to_shot += TIME_BETWEEN_SHOTS
 		var shot = shot_scene.instance()
 		get_tree().get_root().add_child(shot)
-		shot.initialize(translation, player.transform.origin)
+		shot.initialize(translation, player.transform.origin, 0)
 

@@ -19,6 +19,50 @@ size = Vector3( 200, 2, 100 )
 script = ExtResource( 3 )
 mob_scene = ExtResource( 2 )
 
+[node name="Wall" type="StaticBody" parent="."]
+transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, 0, 1.53411, -29.262 )
+collision_layer = 15
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall2" type="StaticBody" parent="."]
+transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, 0, 1.53411, 29.1577 )
+collision_layer = 15
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall2"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall2"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall3" type="StaticBody" parent="."]
+transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, -30.0677, 1.53411, -1.1177 )
+collision_layer = 15
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall3"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall3"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall4" type="StaticBody" parent="."]
+transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, 30.0674, 1.53411, -1.1177 )
+collision_layer = 15
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall4"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall4"]
+mesh = SubResource( 2 )
+material/0 = null
+
 [node name="Ground" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 

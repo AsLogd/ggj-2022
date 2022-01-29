@@ -2,10 +2,7 @@ extends KinematicBody
 
 var velocity = Vector3.ZERO
 var damage = 1
-var speed = 0.3
-
-func _ready():
-	add_to_group("BULLETS")
+var speed = 0.5
 
 func _physics_process(_delta):
 	var col = move_and_collide(velocity)
@@ -13,16 +10,10 @@ func _physics_process(_delta):
 		if col.has_method("hit"):
 			col.collider.hit(damage)
 		queue_free()
-	
-func initialize(start_position, player_position, type):
+
+func initialize(start_position, target_position, the_damage):
 	translation = start_position
-	look_at(player_position, Vector3.UP)
+	look_at(target_position, Vector3.UP)
 	velocity = Vector3.FORWARD * speed
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
-	
-	if type == 0:
-		damage = 1
-		speed = 0.3
-	elif type == 1:
-		damage = 5
-		speed = 0.5
+	damage = the_damage
