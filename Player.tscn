@@ -25,34 +25,3 @@ transform = Transform( 1, 0, 0, 0, 0.865073, -0.501647, 0, 0.501647, 0.865073, 0
 
 [node name="Camera" type="Camera" parent="Cam"]
 transform = Transform( 1, 0, 0, 0, 0.15459, 0.987978, 0, -0.987978, 0.15459, 0, 23.4306, -8.88977 )
-current = true
-
-[node name="SpawnPath" type="Path" parent="Cam"]
-transform = Transform( 1, 0, 0, 0, 0.865073, 0.501647, 0, -0.501647, 0.865073, 0, -2.36233, -8.72338 )
-curve = SubResource( 2 )
-
-[node name="SpawnLocation" type="PathFollow" parent="Cam/SpawnPath"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.6257, 0.0674596, -33.3215 )
-
-[node name="FrustumReference" type="Spatial" parent="."]
-visible = false
-
-[node name="topleft" type="MeshInstance" parent="FrustumReference"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.2398, -1.90735e-06, -33.0408 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="topright" type="MeshInstance" parent="FrustumReference"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35.3711, -1.90735e-06, -33.0408 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="bottomleft" type="MeshInstance" parent="FrustumReference"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.70351, -1.90735e-06, 10.9583 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="bottomright" type="MeshInstance" parent="FrustumReference"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.32006, -1.90735e-06, 10.9477 )
-mesh = SubResource( 3 )
-material/0 = null
