@@ -117,6 +117,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GameOverLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -37.0
+margin_top = -24.0
+margin_right = 119.0
+margin_bottom = 14.0
+text = "GAME OVER BITCH
+dash to start again"
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Spawner" type="Spatial" parent="."]
 script = ExtResource( 5 )
 
@@ -136,4 +152,7 @@ to_spawn_scene = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.4117, 0.44275, 32.9849 )
 to_spawn_scene = ExtResource( 2 )
 
+[connection signal="game_over" from="." to="Spawner" method="_on_Main_game_over"]
+[connection signal="game_start" from="." to="Player" method="_on_Main_game_start"]
+[connection signal="dies" from="Player" to="." method="_on_Player_dies"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]

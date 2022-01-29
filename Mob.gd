@@ -18,13 +18,20 @@ var player
 var hp = 100
 var max_hp = 100
 
+var stop = false
+
 func hit(damage):
 	print("HITOSHI")
 	
 func _ready():
+	var main = get_node("/root/Main")
+	main.connect("game_over", self, "_on_Main_game_over")
+	main.connect("game_start", self, "_on_Main_game_start")
 	add_to_group("ENEMIES")
 
 func _physics_process(_delta):
+	if(stop):
+		return
 	move_and_slide(velocity)
 
 func initialize(start_position, the_player, initial_hp):
@@ -34,6 +41,8 @@ func initialize(start_position, the_player, initial_hp):
 	max_hp = initial_hp
 
 func _process(delta):
+	if(stop):
+		return
 	time_to_change_direction-= delta;
 	time_to_shot -= delta;
 	if time_to_change_direction < 0:
@@ -47,3 +56,9 @@ func _process(delta):
 		var shot = shot_scene.instance()
 		get_tree().get_root().add_child(shot)
 		shot.initialize(translation, player.transform.origin, 0)
+
+func _on_Main_game_start():
+	queue_free()
+
+func _on_Main_game_over():
+	stop = true

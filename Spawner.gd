@@ -11,3 +11,4 @@ func spawn():
 			return
 		else:
 			print("Can't spawn at " + _i.name + " because it's on screen")
+

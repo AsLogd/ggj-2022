@@ -17,6 +17,7 @@ export var dash_duration = 0.1
 
 const SHOOT_COOLDOWN = 0.3
 
+var dead = true
 var current_hp = max_hp
 var current_damage = 0
 var dash_available = true
@@ -32,7 +33,11 @@ var current_direction =  Vector3.ZERO
 
 signal update_health_and_damage(new_damage, new_health)
 
+signal dies
+
 func _physics_process(delta):
+	if(dead):
+		return
 	# We create a local variable to store the input direction.
 	var direction = Vector3.ZERO
 	var speed_multiplier = 1.0
@@ -89,11 +94,26 @@ func _physics_process(delta):
 	speed_multiplier = 1.0
 	
 func _process(delta):
+	if(current_hp <= 0):
+		if(!dead):
+			print("Player dies")
+			dead = true
+			emit_signal("dies")
+		return
+		
 	current_damage = max_damage * (max_hp / current_hp)
 	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
+	
 	
 func hit(damage):
 	print("asdfasdf")
 	if dash_left <= 0.0:
 		current_hp -= damage
 
+
+
+func _on_Main_game_start():
+	dead = false
+	transform.origin = Vector3(0, 0, 0)
+	current_hp = max_hp
+	current_damage = 0
