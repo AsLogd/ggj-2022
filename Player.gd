@@ -8,7 +8,7 @@ export var speed = 14
 export var fall_acceleration = 75
 
 export var max_damage = 150
-export var heal_per_second = 5
+export var heal_per_second = 3
 export var max_hp = 100
 
 # In seconds
