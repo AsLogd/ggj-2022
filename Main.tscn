@@ -64,10 +64,14 @@ transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -35.4171, 0.4427
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 30.4472, 0.44275, 5.98156 )
 
 [node name="WaveNotice" type="Label" parent="Map/Spawner"]
-margin_left = 168.0
-margin_top = 60.0
-margin_right = 565.0
-margin_bottom = 110.0
+anchor_left = 0.509
+anchor_top = 0.157
+anchor_right = 0.509
+anchor_bottom = 0.157
+margin_left = -198.48
+margin_top = -24.78
+margin_right = 198.52
+margin_bottom = 25.22
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
