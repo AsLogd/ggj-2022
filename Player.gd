@@ -98,18 +98,22 @@ func _physics_process(delta):
 	speed_multiplier = 1.0
 	
 func _process(delta):
-	if(current_hp <= 0):
-		if(!dead):
-			print("Player dies")
-			dead = true
-			emit_signal("dies")
+	if(dead):
 		return
-	current_damage = max_damage - (max_damage * (current_hp/float(max_hp))) + 1
-	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
-	if current_hp < max_hp:
+		
+	if(current_hp <= 0):
+		current_hp = 0
+		print("Player dies")
+		dead = true
+		emit_signal("dies")
+		
+	if !dead and current_hp < max_hp:
 		current_hp += heal_per_second*delta
 		if current_hp > max_hp:
 			current_hp = max_hp
+	
+	current_damage = max_damage - (max_damage * (current_hp/float(max_hp))) + 1
+	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
 	
 func hit(damage):
 	if dash_left <= 0.0:
