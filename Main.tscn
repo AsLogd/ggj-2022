@@ -55,6 +55,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.8435, 0.44275, -0.499842 )
 [node name="right" parent="Map/Spawner" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.967, 0.44275, -0.499842 )
 
+[node name="WaveNotice" type="Label" parent="Map/Spawner"]
+margin_left = 168.0
+margin_top = 60.0
+margin_right = 565.0
+margin_bottom = 110.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Get ready for wave number 1"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Wall" type="StaticBody" parent="Map"]
 transform = Transform( 0.635986, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -0.367842, 1.53411, -48.3148 )
 collision_layer = 15
