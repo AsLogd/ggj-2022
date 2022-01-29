@@ -50,6 +50,10 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+max_width = null
+max_height = null
+hp_color = null
+damage_color = null
 
 [node name="EnemyLabel" type="Label" parent="."]
 material = SubResource( 3 )

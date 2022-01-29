@@ -15,6 +15,8 @@ var time_to_shot = TIME_BETWEEN_SHOTS
 var velocity = Vector3.ZERO
 var player
 
+var hp = 100
+var max_hp = 100
 
 func _ready():
 	add_to_group("ENEMIES")
@@ -22,10 +24,11 @@ func _ready():
 func _physics_process(_delta):
 	move_and_slide(velocity)
 
-func initialize(start_position, the_player):
+func initialize(start_position, the_player, initial_hp):
 	translation = start_position
 	player = the_player
-
+	hp = initial_hp
+	max_hp = initial_hp
 
 func _process(delta):
 	time_to_change_direction-= delta;
@@ -35,9 +38,9 @@ func _process(delta):
 		velocity = Vector3.FORWARD * speed
 		velocity = velocity.rotated(Vector3.UP, rotation.y)
 		time_to_change_direction += rand_range(MIN_TIME_TO_CHANGE_DIRECTION, MAX_TIME_TO_CHANGE_DIRECTION)
+		
 	if time_to_shot < 0:
 		time_to_shot += TIME_BETWEEN_SHOTS
 		var shot = shot_scene.instance()
 		get_tree().get_root().add_child(shot)
 		shot.initialize(translation, player.transform.origin, 0)
-
