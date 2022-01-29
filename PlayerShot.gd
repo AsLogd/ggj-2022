@@ -2,7 +2,7 @@ extends KinematicBody
 
 var velocity = Vector3.ZERO
 var damage = 1
-var speed = 0.5
+var speed = 1
 
 func _physics_process(_delta):
 	var col = move_and_collide(velocity)
