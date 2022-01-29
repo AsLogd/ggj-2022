@@ -32,6 +32,8 @@ var shot_cooldown = -1
 
 var current_direction = Vector3.ZERO
 var last_mouse_position = null
+var last_look_direction = null
+var last_look_at = null
 
 signal update_health_and_damage(new_damage, new_health)
 
@@ -55,27 +57,7 @@ func _physics_process(delta):
 			dash_available = true
 
 	shot_cooldown -= delta
-
-	var mouse_pos = get_viewport().get_mouse_position()
-	if last_mouse_position != null and (last_mouse_position - mouse_pos).length() > .1:
-		var camera = get_node("Cam/Camera")
-		var from = camera.project_ray_origin(mouse_pos)
-		var to = from + camera.project_ray_normal(mouse_pos) * 10000
-		var cursorPos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
-		var target = get_node("Target")
-		target.global_transform.origin = cursorPos
-		$animated_fish.look_at(cursorPos, Vector3.UP)
 	
-	last_mouse_position = mouse_pos
-	
-	var look_at_z = Input.get_axis("attack_forward", "attack_back")
-	var look_at_x = Input.get_axis("attack_left", "attack_right")
-	
-	if look_at_z != 0 and look_at_x != 0:
-		var look_at = Vector3(look_at_x, global_transform.origin.y, look_at_z)
-		var look_at_target = global_transform.origin + look_at
-		$animated_fish.look_at(look_at_target, Vector3.UP)
-
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
@@ -99,19 +81,14 @@ func _physics_process(delta):
 		dash_cooldown = dash_refresh
 		dash_left = dash_duration
 		dash_available = false
+		
+	target_and_shoot()
 
 	dash_left -= delta
 
 	if dash_left >= 0.0:
 		speed_multiplier = dash_multiplier
 		
-	if Input.is_action_pressed("attack"):
-		if shot_cooldown <= 0:
-			shot_cooldown = SHOOT_COOLDOWN
-			var shot = player_shot_scene.instance()
-			get_tree().get_root().add_child(shot)
-			shot.initialize(translation, $animated_fish.transform.origin - $animated_fish.transform.basis.z, current_damage)
-
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
@@ -124,6 +101,44 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
 	speed_multiplier = 1.0
+	
+func target_and_shoot():
+	var look_at = null
+	var look_direction = last_look_direction
+	
+	var mouse_pos = get_viewport().get_mouse_position()
+	if last_mouse_position != null and (last_mouse_position - mouse_pos).length() > .1:
+		var camera = get_node("Cam/Camera")
+		var from = camera.project_ray_origin(mouse_pos)
+		var to = from + camera.project_ray_normal(mouse_pos) * 10000
+		look_at = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+		
+	last_mouse_position = mouse_pos
+		
+	var look_at_z = Input.get_axis("attack_forward", "attack_back")
+	var look_at_x = Input.get_axis("attack_left", "attack_right")
+	
+	if look_at_z != 0 and look_at_x != 0:
+		look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
+		look_at = global_transform.origin + look_direction
+		
+	if look_at == null:
+		look_at = last_look_at
+		
+	last_look_at = look_at
+		
+	var target = get_node("Target")
+	if look_at != null:
+		target.global_transform.origin = look_at
+		$animated_fish.look_at(look_at, Vector3.UP)
+		last_look_direction = look_direction
+		
+	if Input.is_action_pressed("attack"):
+		if shot_cooldown <= 0:
+			shot_cooldown = SHOOT_COOLDOWN
+			var shot = player_shot_scene.instance()
+			get_tree().get_root().add_child(shot)
+			shot.initialize(translation, look_at, current_damage)
 	
 func _process(delta):
 	if(dead):
@@ -146,8 +161,6 @@ func _process(delta):
 func hit(damage):
 	if dash_left <= 0.0:
 		current_hp -= damage
-
-
 
 func _on_Main_game_start():
 	dead = false
