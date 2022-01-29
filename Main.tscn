@@ -158,12 +158,12 @@ to_spawn_scene = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.4117, 0.44275, 32.9849 )
 to_spawn_scene = ExtResource( 2 )
 
-[connection signal="game_over" from="." to="Spawner" method="_on_Main_game_over"]
-[connection signal="game_start" from="." to="Player" method="_on_Main_game_start"]
-[connection signal="dies" from="Player" to="." method="_on_Player_dies"]
 [node name="easter_egg" type="MeshInstance" parent="."]
 transform = Transform( 9.33031, 0, 0, 0, 9.33031, 0, 0, 0, 9.33031, -3.21088, -30.816, 19.2443 )
 mesh = ExtResource( 7 )
 material/0 = SubResource( 4 )
 
+[connection signal="game_over" from="." to="Spawner" method="_on_Main_game_over"]
+[connection signal="game_start" from="." to="Player" method="_on_Main_game_start"]
+[connection signal="dies" from="Player" to="." method="_on_Player_dies"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
