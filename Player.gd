@@ -93,6 +93,7 @@ func _process(delta):
 	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
 	
 func hit(damage):
+	print("asdfasdf")
 	if dash_left <= 0.0:
 		current_hp -= damage
 

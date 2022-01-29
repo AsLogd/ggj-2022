@@ -7,7 +7,7 @@ var speed = 0.5
 func _physics_process(_delta):
 	var col = move_and_collide(velocity)
 	if col != null:
-		if col.has_method("hit"):
+		if col.collider.has_method("hit"):
 			col.collider.hit(damage)
 		queue_free()
 
