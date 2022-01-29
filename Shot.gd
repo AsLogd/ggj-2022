@@ -1,7 +1,7 @@
 extends KinematicBody
 
 var velocity = Vector3.ZERO
-var damage = 20
+var damage = -99
 var speed = 0.3
 var stop = false
 
@@ -27,7 +27,7 @@ func initialize(start_position, player_position, type):
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 	
 	if type == 0:
-		damage = 1
+		damage = 20
 		speed = 0.3
 	elif type == 1:
 		damage = 5

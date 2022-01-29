@@ -104,10 +104,12 @@ func _process(delta):
 			dead = true
 			emit_signal("dies")
 		return
-		
 	current_damage = max_damage - (max_damage * (current_hp/float(max_hp))) + 1
 	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
-	
+	if current_hp < max_hp:
+		current_hp += heal_per_second*delta
+		if current_hp > max_hp:
+			current_hp = max_hp
 	
 func hit(damage):
 	if dash_left <= 0.0:
