@@ -15,8 +15,8 @@ func _process(delta):
 	if(!playing):
 		if Input.is_action_pressed("dash"):
 			get_node("GameOverLabel").percent_visible = 0
+			get_tree().reload_current_scene()
 			emit_signal("game_start")
-			playing = true
 
 func _ready():
 	emit_signal("game_start")
