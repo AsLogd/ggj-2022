@@ -41,10 +41,10 @@ func _physics_process(_delta):
 		return
 	move_and_slide(velocity)
 
-func initialize(start_position, the_player, a_hp = base_max_hp, a_enemy_type = 0):
+func initialize(start_position, the_player, a_enemy_type = 0, hp_mult = 1):
 	translation = start_position
 	player = the_player
-	hp = a_hp
+	hp = base_max_hp * hp_mult
 	enemy_type = a_enemy_type
 
 func _process(delta):
