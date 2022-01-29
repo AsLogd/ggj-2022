@@ -36,32 +36,32 @@ transform = Transform( 0.999999, 0, -1.39698e-09, 0, 0.999999, 0, 1.39698e-09, 0
 transform = Transform( 0.999999, 0, -9.31323e-10, 0, 0.999999, 0, 9.31323e-10, 0, 0.999999, -0.00533959, -0.000403832, 0.0103497 )
 
 [node name="Spawner" type="Spatial" parent="Map"]
-transform = Transform( 1.69932, 0, 0, 0, 1.69932, 0, 0, 0, 1.69932, 0, 0, 0 )
+transform = Transform( -0.0381978, 0, 2.73212, 0, 1.69932, 0, -2.73212, 0, -0.0381978, -13.1056, 0, -18.9487 )
 script = ExtResource( 5 )
 
 [node name="topleft" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7742, 0.44274, -15.8676 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2486, 0.44274, -10.7098 )
 
 [node name="topright" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.746, 0.44274, -23.3944 )
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 31.8384, 0.44274, -10.476 )
 
 [node name="bottomleft" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5641, 0.44274, 19.0229 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.0608, 0.44274, 18.9439 )
 
 [node name="bottomright" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9536, 0.44275, 20.472 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.1143, 0.44275, 20.5276 )
 
 [node name="bottom" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.855788, 0.44275, 20.5582 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.16319, 0.44275, 20.4876 )
 
 [node name="top" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90386, 0.44275, -20.0747 )
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -5.4264, 0.44275, -10.2474 )
 
 [node name="left" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.8435, 0.44275, -0.499842 )
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -35.4171, 0.44275, 5.06703 )
 
 [node name="right" parent="Map/Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.967, 0.44275, -0.499842 )
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 30.4472, 0.44275, 5.98156 )
 
 [node name="WaveNotice" type="Label" parent="Map/Spawner"]
 margin_left = 168.0
@@ -106,7 +106,7 @@ collision_layer = 15
 collision_mask = 15
 
 [node name="CollisionShape3" type="CollisionShape" parent="Map/StaticBody3"]
-transform = Transform( 3.99581, 0, 0.0147423, 0, 1, 0, 0.0147424, 0, -0.104465, -3.39688, 0.00539813, 0.5675 )
+transform = Transform( 3.99581, 0, 0.0147423, 0, 1, 0, 0.0147424, 0, -0.104465, -3.39682, 0.00539813, 0.550624 )
 shape = SubResource( 5 )
 
 [node name="StaticBody4" type="StaticBody" parent="Map"]

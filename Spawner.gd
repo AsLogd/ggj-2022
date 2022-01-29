@@ -16,19 +16,13 @@ var grace_timer
 var is_grace_period = true
 
 func spawn():
-	if (not is_grace_period):
+	if not is_grace_period and wave_spawned < mobs_per_wave:
 		var children = get_children()
-		children.shuffle()
-		for _i in children:
-			# Nose com filtrar perque no em pilli el timer de cap altra manera
-			if(_i.get_class() == "Spatial" && not _i.get_node("Visibility").is_on_screen()):
-				#print("Spawning enemy at spawn " + _i.name)
-				if wave_spawned < mobs_per_wave:
-					_i.spawn()
-					wave_spawned = wave_spawned + 1
-				return
-			#else:
-				#print("Can't spawn at " + _i.name + " because it's on screen")
+		var child = children[randi() % children.size()]
+		while child.get_class() != "Spatial":
+			child = children[randi() % children.size()]
+		child.spawn()
+		wave_spawned = wave_spawned + 1
 			
 func _ready():
 
