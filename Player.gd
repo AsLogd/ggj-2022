@@ -32,6 +32,10 @@ var current_direction =  Vector3.ZERO
 
 signal update_health_and_damage(new_damage, new_health)
 
+func _ready():
+	get_node("Pivot/animated_fish/RootNode/AnimationPlayer").get_animation("Take 001").set_loop(true)
+	get_node("Pivot/animated_fish/RootNode/AnimationPlayer").play("Take 001")
+
 func _physics_process(delta):
 	# We create a local variable to store the input direction.
 	var direction = Vector3.ZERO
