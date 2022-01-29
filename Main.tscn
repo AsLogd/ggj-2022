@@ -8,16 +8,16 @@
 [ext_resource path="res://SpawnPoint.tscn" type="PackedScene" id=6]
 [ext_resource path="res://4_5764750493905585483.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://4_5764750493905585486.png" type="Texture" id=8]
-[ext_resource path="res://arena_base.fbx" type="PackedScene" id=9]
+[ext_resource path="res://arena_base.tscn" type="PackedScene" id=9]
 [ext_resource path="res://arena_obj_b.fbx" type="PackedScene" id=10]
 [ext_resource path="res://arena_obj_a.fbx" type="PackedScene" id=11]
 
 [sub_resource type="BoxShape" id=5]
 
-[sub_resource type="CanvasItemMaterial" id=3]
-
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 8 )
+
+[sub_resource type="CanvasItemMaterial" id=3]
 
 [node name="Main" type="Node"]
 script = ExtResource( 3 )
@@ -26,14 +26,14 @@ mob_scene = ExtResource( 2 )
 [node name="Map" type="Spatial" parent="."]
 transform = Transform( -0.00211579, 0, 0.588468, 0, 0.588472, 0, -0.588468, 0, -0.00211579, 0, -1.1488, 0 )
 
-[node name="arena_base" parent="Map" instance=ExtResource( 9 )]
-transform = Transform( 1019.59, 0, -2.38419e-07, 0, 1019.59, 0, 2.38419e-07, 0, 1019.59, 0, 0, 0 )
+[node name="arena_base2" parent="Map" instance=ExtResource( 9 )]
+transform = Transform( 1019.59, 0, 0, 0, 1019.59, 0, 0, 0, 1019.59, 0, 0, 0 )
 
-[node name="arena_obj_a" parent="Map/arena_base" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, -9.31323e-10, 0, 1, 0, 9.31323e-10, 0, 1, 0.000486051, -0.00231741, -0.00170028 )
+[node name="arena_obj_a" parent="Map/arena_base2" instance=ExtResource( 11 )]
+transform = Transform( 0.999999, 0, -1.39698e-09, 0, 0.999999, 0, 1.39698e-09, 0, 0.999999, 0.000486051, -0.0023174, -0.00170028 )
 
-[node name="arena_obj_b" parent="Map/arena_base" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, -2.32831e-10, 0, 1, 0, 2.32831e-10, 0, 1, -0.00533959, -0.000403832, 0.0103497 )
+[node name="arena_obj_b" parent="Map/arena_base2" instance=ExtResource( 10 )]
+transform = Transform( 0.999999, 0, -9.31323e-10, 0, 0.999999, 0, 9.31323e-10, 0, 0.999999, -0.00533959, -0.000403832, 0.0103497 )
 
 [node name="Spawner" type="Spatial" parent="Map"]
 transform = Transform( 1.69932, 0, 0, 0, 1.69932, 0, 0, 0, 1.69932, 0, 0, 0 )
@@ -118,6 +118,12 @@ collision_mask = 15
 transform = Transform( 3.99581, 0, 0.0147423, 0, 1, 0, 0.0147424, 0, -0.104465, -3.39319, 0.00539813, -0.459199 )
 shape = SubResource( 5 )
 
+[node name="easter_egg" type="MeshInstance" parent="Map"]
+transform = Transform( -0.00783505, 0.283497, -2.16066, 2.05888e-10, 2.16068, 0.283499, 2.17918, 0.00101929, -0.00776847, -69.9166, 11.9147, 73.9608 )
+mesh = ExtResource( 7 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 4 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.0644279, 0.997922, 0, -0.997922, 0.0644279, 0, 25.3996, 0 )
 shadow_enabled = true
@@ -179,11 +185,6 @@ percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="easter_egg" type="MeshInstance" parent="."]
-transform = Transform( 1.2824, 0, 0, 0, 1.2824, 0, 0, 0, 1.2824, 43.6715, 7.25989, 40.9872 )
-mesh = ExtResource( 7 )
-material/0 = SubResource( 4 )
 
 [connection signal="game_over" from="." to="Map/Spawner" method="_on_Main_game_over"]
 [connection signal="game_start" from="." to="Player" method="_on_Main_game_start"]
