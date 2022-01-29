@@ -5,6 +5,11 @@ export (PackedScene) var mob_scene
 export var mobs_per_wave = 10
 export var wave_interval = 30
 export var grace_interval = 5
+export var base_elite_chance = 0.1
+
+# Scaling settings
+export var health_scaling = 1.5
+export var elite_chance_scaling = 0.1
 
 var notice_label
 

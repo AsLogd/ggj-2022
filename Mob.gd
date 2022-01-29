@@ -18,8 +18,8 @@ var time_to_shot = TIME_BETWEEN_SHOTS
 var velocity = Vector3.ZERO
 var player
 
-const max_hp = 40
-var hp = max_hp
+export var base_max_hp = 40
+var hp = base_max_hp
 
 var stop = false
 
@@ -41,9 +41,11 @@ func _physics_process(_delta):
 		return
 	move_and_slide(velocity)
 
-func initialize(start_position, the_player):
+func initialize(start_position, the_player, a_hp = base_max_hp, a_enemy_type = 0):
 	translation = start_position
 	player = the_player
+	hp = a_hp
+	enemy_type = a_enemy_type
 
 func _process(delta):
 	if(stop):
