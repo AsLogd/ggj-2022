@@ -24,60 +24,100 @@ albedo_texture = ExtResource( 8 )
 script = ExtResource( 3 )
 mob_scene = ExtResource( 2 )
 
-[node name="Wall" type="StaticBody" parent="."]
-transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, 0, 1.53411, -48.3148 )
+[node name="Map" type="Spatial" parent="."]
+transform = Transform( 0.588472, 0, 0, 0, 0.588472, 0, 0, 0, 0.588472, 0, 0, 0 )
+
+[node name="Spawner" type="Spatial" parent="Map"]
+transform = Transform( 1.69932, 0, 0, 0, 1.69932, 0, 0, 0, 1.69932, 0, 0, 0 )
+script = ExtResource( 5 )
+
+[node name="topleft" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7742, 0.44274, -15.8676 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="topright" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.746, 0.44274, -23.3944 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="bottomleft" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5641, 0.44274, 19.0229 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="bottomright" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9536, 0.44275, 20.472 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="bottom" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.855788, 0.44275, 20.5582 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="top" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90386, 0.44275, -20.0747 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="left" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.8435, 0.44275, -0.499842 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="right" parent="Map/Spawner" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.967, 0.44275, -0.499842 )
+to_spawn_scene = ExtResource( 2 )
+
+[node name="Wall" type="StaticBody" parent="Map"]
+transform = Transform( 0.635986, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -0.367842, 1.53411, -48.3148 )
 collision_layer = 15
 
-[node name="CollisionShape" type="CollisionShape" parent="Wall"]
+[node name="CollisionShape" type="CollisionShape" parent="Map/Wall"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Wall"]
+[node name="MeshInstance" type="MeshInstance" parent="Map/Wall"]
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Wall2" type="StaticBody" parent="."]
-transform = Transform( 1.05903, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -1.84168, 1.53411, 48.8251 )
+[node name="Wall2" type="StaticBody" parent="Map"]
+transform = Transform( 0.635986, 0, 0, 0, 1.76356, 0, 0, 0, 0.0268222, -1.47384, 1.53411, 48.8251 )
 collision_layer = 15
 
-[node name="CollisionShape" type="CollisionShape" parent="Wall2"]
+[node name="CollisionShape" type="CollisionShape" parent="Map/Wall2"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Wall2"]
+[node name="MeshInstance" type="MeshInstance" parent="Map/Wall2"]
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Wall3" type="StaticBody" parent="."]
-transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, -100.708, 1.53411, -1.1177 )
+[node name="Wall3" type="StaticBody" parent="Map"]
+transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -0.499405, 0, -5.52886e-10, -64.2644, 1.53411, 0.499493 )
 collision_layer = 15
 
-[node name="CollisionShape" type="CollisionShape" parent="Wall3"]
+[node name="CollisionShape" type="CollisionShape" parent="Map/Wall3"]
+transform = Transform( 1, 0, 1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/Wall3"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall4" type="StaticBody" parent="Map"]
+transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -0.503012, 0, -5.56879e-10, 62.1832, 1.53411, 0.283764 )
+collision_layer = 15
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/Wall4"]
 transform = Transform( 1, 0, -1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Wall3"]
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="Wall4" type="StaticBody" parent="."]
-transform = Transform( -4.62919e-08, 0, 0.0268222, 0, 1.76356, 0, -1.05903, 0, -1.17244e-09, 99.3582, 1.53411, -1.1177 )
-collision_layer = 15
-
-[node name="CollisionShape" type="CollisionShape" parent="Wall4"]
-transform = Transform( 1, 0, -1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Wall4"]
+[node name="MeshInstance" type="MeshInstance" parent="Map/Wall4"]
 transform = Transform( 1, 0, -1.11022e-16, 0, 1, 0, -1.13687e-13, 0, 1, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Ground" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+[node name="Ground" type="StaticBody" parent="Map"]
+transform = Transform( 0.652179, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+[node name="CollisionShape" type="CollisionShape" parent="Map/Ground"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Ground"]
+[node name="MeshInstance" type="MeshInstance" parent="Map/Ground"]
+transform = Transform( 0.989641, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -1.6823, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -139,31 +179,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spawner" type="Spatial" parent="."]
-script = ExtResource( 5 )
-
-[node name="topleft" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.176, 0.44274, -29.1691 )
-to_spawn_scene = ExtResource( 2 )
-
-[node name="topright" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.1153, 0.44274, -29.1691 )
-to_spawn_scene = ExtResource( 2 )
-
-[node name="bottomleft" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.176, 0.44274, 27.4057 )
-to_spawn_scene = ExtResource( 2 )
-
-[node name="bottomright" parent="Spawner" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 67.4117, 0.44275, 32.9849 )
-to_spawn_scene = ExtResource( 2 )
-
 [node name="easter_egg" type="MeshInstance" parent="."]
 transform = Transform( 9.33031, 0, 0, 0, 9.33031, 0, 0, 0, 9.33031, -3.21088, -30.816, 19.2443 )
 mesh = ExtResource( 7 )
 material/0 = SubResource( 4 )
 
-[connection signal="game_over" from="." to="Spawner" method="_on_Main_game_over"]
+[connection signal="game_over" from="." to="Map/Spawner" method="_on_Main_game_over"]
 [connection signal="game_start" from="." to="Player" method="_on_Main_game_start"]
 [connection signal="dies" from="Player" to="." method="_on_Player_dies"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
