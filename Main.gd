@@ -14,13 +14,4 @@ func _ready():
 	randomize()
 
 func _on_MobTimer_timeout():
-<<<<<<< HEAD
-	# Create a Mob instance and add it to the scene.
-	var mob = mob_scene.instance()
-	var out_coords = get_node("Player").get_outside_coords()
-	var player_position = $Player.transform.origin
-	add_child(mob)
-	mob.initialize(out_coords, $Player, 5)
-=======
 	get_node("Spawner").spawn()
->>>>>>> 287b5f5aed9d05f9ceed7006c0eec92db4703e4d
