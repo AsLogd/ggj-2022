@@ -26,6 +26,7 @@ func _ready():
 	get_node("GameOverLabel").add_color_override("font_color", Color(0,0,0,1))
 	
 	randomize()
+	get_node("Spawner").spawn()
 
 func _on_MobTimer_timeout():
 	if(playing):

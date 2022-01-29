@@ -1,7 +1,7 @@
 extends KinematicBody
 
 var velocity = Vector3.ZERO
-var damage = 1
+var damage = 20
 var speed = 0.3
 var stop = false
 

@@ -8,6 +8,7 @@ export var speed = 14
 export var fall_acceleration = 75
 
 export var max_damage = 150
+export var heal_per_second = 5
 export var max_hp = 100
 
 # In seconds
@@ -34,6 +35,9 @@ var current_direction =  Vector3.ZERO
 signal update_health_and_damage(new_damage, new_health)
 
 signal dies
+func _ready():
+	get_node("Pivot/animated_fish/RootNode/AnimationPlayer").get_animation("Take 001").set_loop(true)
+	get_node("Pivot/animated_fish/RootNode/AnimationPlayer").play("Take 001")
 
 func _physics_process(delta):
 	if(dead):
@@ -101,12 +105,11 @@ func _process(delta):
 			emit_signal("dies")
 		return
 		
-	current_damage = max_damage * (max_hp / current_hp)
+	current_damage = max_damage - (max_damage * (current_hp/float(max_hp))) + 1
 	emit_signal("update_health_and_damage", (current_hp / float(max_hp)))
 	
 	
 func hit(damage):
-	print("asdfasdf")
 	if dash_left <= 0.0:
 		current_hp -= damage
 
