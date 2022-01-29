@@ -2,12 +2,13 @@ extends KinematicBody
 
 var velocity = Vector3.ZERO
 var damage = 1
-var speed = 0.3
+var speed = 0.5
 
 func _physics_process(_delta):
 	var col = move_and_collide(velocity)
 	if col != null:
-		col.collider.hit(damage)
+		if col.has_method("hit"):
+			col.collider.hit(damage)
 		queue_free()
 
 func initialize(start_position, target_position, the_damage):

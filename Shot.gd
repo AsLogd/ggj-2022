@@ -10,7 +10,8 @@ func _ready():
 func _physics_process(_delta):
 	var col = move_and_collide(velocity)
 	if col != null:
-		col.collider.hit(damage)
+		if col.has_method("hit"):
+			col.collider.hit(damage)
 		queue_free()
 	
 func initialize(start_position, player_position, type):
