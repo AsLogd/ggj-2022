@@ -26,8 +26,9 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 0.865073, -0.501647, 0, 0.501647, 0.865073, 0, -2.33247, 8.73141 )
 
 [node name="Camera" type="Camera" parent="Cam"]
-transform = Transform( 1, 0, 0, 0, 0.15459, 0.987978, 0, -0.987978, 0.15459, 0, 23.4306, -8.88977 )
+transform = Transform( 1, 0, 0, 0, 0.155, 0.988, 0, -0.988, 0.155, 0, 45.43, -8.89 )
 current = true
+far = 8192.0
 
 [node name="Target" type="Position3D" parent="."]
 
