@@ -11,9 +11,9 @@ func _physics_process(_delta):
 			col.collider.hit(damage)
 		queue_free()
 
-func initialize(start_position, target_position, the_damage):
+func initialize(start_position, target_position, the_damage, a_speed):
 	translation = start_position
 	look_at(target_position, Vector3.UP)
-	velocity = Vector3.FORWARD * speed
+	velocity = Vector3.FORWARD * a_speed
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 	damage = the_damage

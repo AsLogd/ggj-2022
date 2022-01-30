@@ -164,7 +164,7 @@ func target_and_shoot():
 			shot_cooldown = SHOOT_COOLDOWN
 			var shot = player_shot_scene.instance()
 			get_tree().get_root().add_child(shot)
-			shot.initialize(translation, look_at, current_damage)
+			shot.initialize(translation, look_at, current_damage, speed/14)
 
 func _process(delta):
 	if(dead):
