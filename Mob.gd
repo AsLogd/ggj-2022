@@ -21,30 +21,30 @@ var stats = {
 		"base_damage": 40,
 		"projectile_speed": 0.5,
 		"speed": 12,
-		"projectile_scene": ResourceLoader.load("Hook.tscn"),
+		"projectile_scene": ResourceLoader.load("PurpleShot.tscn"),
 		"base_scene": ResourceLoader.load("enemy_fish_elite.tscn"),
 		"attack_cd": 2,
 		"actions": ["damage"]
 	},
 	EnemyType.MELEE: {
 		"base_hp": 80,
-		"base_damage": 80,
+		"base_damage": 5,
 		"projectile_speed": null,
 		"speed": 20,
 		"projectile_scene": null,
 		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
-		"attack_cd": 1,
+		"attack_cd":0.5,
 		"actions": ["damage"]
 	},
 	EnemyType.MELEE_ELITE: {
 		"base_hp": 120,
-		"base_damage": 120,
+		"base_damage": 60,
 		"projectile_speed": 1.5,
 		"speed": 14,
-		"projectile_scene": ResourceLoader.load("Hook.tscn"),
+		"projectile_scene": ResourceLoader.load("ShotHook.tscn"),
 		"base_scene": ResourceLoader.load("enemy_fish_elite.tscn"),
 		"attack_cd": 5,
-		"actions": ["damage", "drag"]
+		"actions": ["drag"]
 	}
 }
 
@@ -187,9 +187,12 @@ func attack():
 		for n in range(0,360,45):
 			spawn_projectile(translation + Vector3.FORWARD.rotated(Vector3.UP, n*TAU/360.0))
 	elif enemy_type == EnemyType.MELEE:
-		# TODO(Marce): Local attack
-		pass
+		if (player.global_transform.origin - global_transform.origin).length() < 5:
+			player.hit(base_damage)
+			pass
 	elif enemy_type == EnemyType.MELEE_ELITE:
+		if (player.global_transform.origin - global_transform.origin).length() < 5:
+			player.hit(base_damage)
 		spawn_projectile(player.transform.origin)
 
 func spawn_projectile(target_position):

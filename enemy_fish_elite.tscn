@@ -11,7 +11,7 @@ albedo_texture = ExtResource( 5 )
 metallic_specular = 0.55
 metallic_texture = ExtResource( 1 )
 emission_enabled = true
-emission = Color( 0, 0, 0, 1 )
+emission = Color( 0.568627, 0.176471, 0.176471, 1 )
 emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
@@ -21,7 +21,7 @@ normal_scale = 1.0
 normal_texture = ExtResource( 3 )
 
 [node name="enemy_fish" instance=ExtResource( 2 )]
-transform = Transform( -1.5, 0, -2.26494e-07, 0, 1.5, 0, 2.26494e-07, 0, -1.5, 0, 0, 0 )
+transform = Transform( -2.7, 0, -3.17091e-07, 0, 2.1, 0, 4.07689e-07, 0, -2.1, 0, 0, 0 )
 
 [node name="Shark_Player" parent="Core/Skeleton" index="0"]
 material/0 = SubResource( 1 )
