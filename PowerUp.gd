@@ -12,3 +12,4 @@ func _ready():
 func _on_Area_body_entered(body):
 	if body.name == "Player":
 		emit_signal("pickup", heal_quantity)
+		queue_free()
