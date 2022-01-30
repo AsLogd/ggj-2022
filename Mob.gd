@@ -30,7 +30,7 @@ var stats = {
 		"base_hp": 80,
 		"base_damage": 80,
 		"projectile_speed": null,
-		"speed": 12,
+		"speed": 20,
 		"projectile_scene": null,
 		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
 		"attack_cd": 1,
@@ -163,12 +163,12 @@ func _process(delta):
 	if movement_pattern == MovementPattern.RANDOM_MOVE:
 		move_randomly()
 
-	if time_to_shot < 0:
+	if time_to_shot <= 0:
 		if transform.origin.distance_to(player.transform.origin) < MIN_DISTANCE_TO_SHOT:
-			time_to_shot += attack_cd
+			time_to_shot = attack_cd
 			attack()
-	else:
-		time_to_shot -= delta;
+			
+	time_to_shot -= delta;
 		
 	if time_to_change_movement_pattern < 0:
 		movement_pattern = MovementPattern.values()[randi()%MovementPattern.values().size()]

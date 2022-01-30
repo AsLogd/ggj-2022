@@ -26,6 +26,7 @@ var dash_available = true
 var dash_cooldown = 0
 var dash_left = 0
 
+var look_direction = Vector3.ZERO
 var velocity = Vector3.ZERO
 var rng = RandomNumberGenerator.new()
 
@@ -33,8 +34,7 @@ var shot_cooldown = -1
 
 var current_direction = Vector3.ZERO
 var last_mouse_position = null
-var last_look_direction = null
-var last_look_at = null
+var using_gamepad = true
 
 var current_state = "normal"
 
@@ -98,16 +98,17 @@ func normal_movement(delta):
 	if Input.is_action_pressed("move_left"):
 		direction.x -= 1
 	if Input.is_action_pressed("move_back"):
-		# Notice how we are working with the vector's x and z axes.
-		# In 3D, the XZ plane is the ground plane.
 		direction.z += 1
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= 1
 
-	var x_axis = Input.get_axis("move_left", "move_right")
-	var z_axis = Input.get_axis("move_forward", "move_back")
+	var x_axis = Input.get_axis("joy_move_left", "joy_move_right")
+	var z_axis = Input.get_axis("joy_move_forward", "joy_move_back")
 	
-	if x_axis != 0 and z_axis != 0:
+	if abs(x_axis) > 0.1 or abs(z_axis) > 0.1:
+		using_gamepad = true
+		
+	if using_gamepad:
 		direction.x = x_axis
 		direction.z = z_axis
 	
@@ -129,34 +130,34 @@ func normal_movement(delta):
 	
 func target_and_shoot():
 	var look_at = null
-	var look_direction = last_look_direction
 	
 	var mouse_pos = get_viewport().get_mouse_position()
 	if last_mouse_position == null or (last_mouse_position - mouse_pos).length() > .1:
+		using_gamepad = false
+	
+	var look_at_z = Input.get_axis("attack_forward", "attack_back")
+	var look_at_x = Input.get_axis("attack_left", "attack_right")
+	
+	if abs(look_at_z) > 0.1 or abs(look_at_x) > 0.1:
+		using_gamepad = true
+		
+	
+	if using_gamepad:
+		if look_at_z != 0 or look_at_x != 0:
+			look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
+		look_at = global_transform.origin + look_direction.normalized()*10
+	else:
 		var camera = get_node("Cam/Camera")
 		var from = camera.project_ray_origin(mouse_pos)
 		var to = from + camera.project_ray_normal(mouse_pos) * 10000
 		look_at = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
 		
 	last_mouse_position = mouse_pos
-		
-	var look_at_z = Input.get_axis("attack_forward", "attack_back")
-	var look_at_x = Input.get_axis("attack_left", "attack_right")
 	
-	if look_at_z != 0 and look_at_x != 0:
-		look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
-		look_at = global_transform.origin + look_direction
-		
-	if look_at == null:
-		look_at = last_look_at
-		
-	last_look_at = look_at
-		
 	var target = get_node("Target")
 	if look_at != null:
 		target.global_transform.origin = look_at
 		$animated_fish.look_at(look_at, Vector3.UP)
-		last_look_direction = look_direction
 		
 	if Input.is_action_pressed("attack"):
 		if shot_cooldown <= 0:
@@ -219,7 +220,6 @@ func _on_Main_game_start():
 	transform.origin = Vector3(0, 0, 0)
 	current_hp = max_hp
 	current_damage = 0
-
 
 func _on_HealthPowerUp_pickup(quantity):
 	print("Health picked up: ", quantity)
