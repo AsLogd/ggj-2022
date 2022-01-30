@@ -12,6 +12,7 @@ var stats = {
 		"projectile_speed": 0.3,
 		"speed": 10,
 		"projectile_scene": ResourceLoader.load("Shot.tscn"),
+		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
 		"attack_cd": 1,
 		"actions": ["damage"]
 	},
@@ -21,6 +22,7 @@ var stats = {
 		"projectile_speed": 0.5,
 		"speed": 12,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
+		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
 		"attack_cd": 2,
 		"actions": ["damage"]
 	},
@@ -30,6 +32,7 @@ var stats = {
 		"projectile_speed": null,
 		"speed": 12,
 		"projectile_scene": null,
+		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
 		"attack_cd": 1,
 		"actions": ["damage"]
 	},
@@ -39,6 +42,7 @@ var stats = {
 		"projectile_speed": 1,
 		"speed": 14,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
+		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
 		"attack_cd": 5,
 		"actions": ["damage", "drag"]
 	}
@@ -129,6 +133,12 @@ func initialize(start_position, the_player, a_enemy_type = 0):
 	actions = type_definition["actions"]
 	
 	enemy_type = a_enemy_type
+	var mesh = type_definition["base_scene"].instance()
+	get_node("Pivot").add_child(mesh)
+	var anim = get_node("Pivot/enemy_fish/AnimationPlayer")
+	anim.get_animation("Core|Take 001|BaseLayer").set_loop(true)
+	anim.play("Core|Take 001|BaseLayer")
+	
 
 func move_towards_player():
 	look_at(player.global_transform.origin, Vector3.UP)
