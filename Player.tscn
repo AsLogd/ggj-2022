@@ -18,7 +18,7 @@ player_shot_scene = ExtResource( 3 )
 [node name="animated_fish" parent="." instance=ExtResource( 2 )]
 transform = Transform( 75.2827, 0, 0, 0, 75.2827, 0, 0, 0, 75.2827, 0, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="PlayerShape" type="CollisionShape" parent="."]
 transform = Transform( 2.14243, 0, 0, 0, 2.14243, 0, 0, 0, 2.14243, 0, 0.914628, 0 )
 shape = SubResource( 1 )
 
