@@ -36,6 +36,16 @@ var last_mouse_position = null
 var last_look_direction = null
 var last_look_at = null
 
+var current_state = "normal"
+
+var invulnerable = false
+
+# Dragging
+var drag_target = null
+
+var direction = Vector3.ZERO
+var speed_multiplier = 1.0
+
 signal update_health_and_damage(new_damage, new_health)
 signal update_dash_cd()
 
@@ -47,10 +57,33 @@ func _ready():
 func _physics_process(delta):
 	if(dead):
 		return
-	# We create a local variable to store the input direction.
-	var direction = Vector3.ZERO
-	var speed_multiplier = 1.0
+		
+	direction = Vector3.ZERO
 	
+	if current_state == "dragged":
+		if (global_transform.origin - drag_target.global_transform.origin).length() < 5:
+			current_state = "normal"
+			invulnerable = false
+			return
+			
+		dragged_movement(delta)
+	elif current_state == "normal":
+		normal_movement(delta)
+		
+	velocity.x = direction.x * speed * speed_multiplier
+	velocity.z = direction.z * speed * speed_multiplier
+	# Vertical velocity
+	velocity.y -= fall_acceleration * delta
+	# Moving the character
+	velocity = move_and_slide(velocity, Vector3.UP)
+	
+func dragged_movement(delta):
+	direction = (drag_target.global_transform.origin - global_transform.origin).normalized()
+	speed_multiplier = 3.0
+	
+func normal_movement(delta):
+	# We create a local variable to store the input direction.
+	speed_multiplier = 1.0
 	if not dash_available:
 		dash_cooldown -= delta
 		
@@ -93,14 +126,7 @@ func _physics_process(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
-
-	velocity.x = direction.x * speed * speed_multiplier
-	velocity.z = direction.z * speed * speed_multiplier
-	# Vertical velocity
-	velocity.y -= fall_acceleration * delta
-	# Moving the character
-	velocity = move_and_slide(velocity, Vector3.UP)
-	
+		
 	speed_multiplier = 1.0
 	
 func target_and_shoot():
@@ -163,8 +189,15 @@ func _process(delta):
 		emit_signal("update_dash_cd", (float(dash_refresh) - dash_cooldown) / float(dash_refresh))
 
 func hit(damage):
-	if dash_left <= 0.0:
-		current_hp -= damage
+	if not invulnerable:
+		if dash_left <= 0.0:
+			current_hp -= damage
+		
+func drag_to(target):
+	if current_state != "dragged":
+		current_state = "dragged"
+		invulnerable = true
+		drag_target = target
 
 func get_multi():
 	if current_hp == 0:

@@ -1,15 +1,49 @@
 extends KinematicBody
 
 export (PackedScene) var shot_scene
-export var enemy_type = 0
 
-const speed = 10
+enum EnemyType { RANGED, RANGED_ELITE, MELEE, MELEE_ELITE }
 
+
+var stats = {
+	EnemyType.RANGED: {
+		"base_hp": 30,
+		"base_damage": 20,
+		"projectile_speed": 0.3,
+		"speed": 10,
+		"projectile_scene": ResourceLoader.load("Shot.tscn"),
+		"attack_cd": 1,
+		"actions": ["damage", "drag"]
+	},
+	EnemyType.RANGED_ELITE: {
+		"base_hp": 60,
+		"base_damage": 40,
+		"projectile_speed": 0.5,
+		"speed": 12,
+		"projectile_scene": ResourceLoader.load("Hook.tscn"),
+		"attack_cd": 2,
+	},
+	EnemyType.MELEE: {
+		"base_hp": 80,
+		"base_damage": 80,
+		"projectile_speed": null,
+		"speed": 12,
+		"projectile_scene": null,
+	},
+	EnemyType.MELEE_ELITE: {
+		"base_hp": 120,
+		"base_damage": 120,
+		"projectile_speed": 1,
+		"speed": 14,
+		"projectile_scene": ResourceLoader.load("Hook.tscn"),
+		"attack_cd": 5
+	}
+}
+
+# Varied constants
 const MAX_TIME_TO_CHANGE_DIRECTION = 1
 const MIN_TIME_TO_CHANGE_DIRECTION = 3
-
 const MIN_DISTANCE_TO_SHOT = 55.0
-
 const TIME_BETWEEN_SHOTS = 1
 
 export var TIME_BETWEEN_MOVEMENT_PATTERN = 2
@@ -21,12 +55,20 @@ var time_to_change_movement_pattern = TIME_BETWEEN_MOVEMENT_PATTERN
 var movement_pattern = MovementPattern.RANDOM_MOVE
 
 var velocity = Vector3.ZERO
+var enemy_type
 var player
 
 enum MovementPattern { RANDOM_MOVE, TOWARDS_PLAYER }
 
-export var base_max_hp = 40
-var hp = base_max_hp
+# Stats
+var base_max_hp
+var hp
+var projectile_speed
+var base_damage
+var speed
+var projectile_scene
+var attack_cd
+var actions
 
 var stop = false
 
@@ -48,10 +90,21 @@ func _physics_process(_delta):
 		return
 	move_and_slide(velocity)
 
-func initialize(start_position, the_player, a_enemy_type = 0, hp_mult = 1):
+func initialize(start_position, the_player, a_enemy_type = 0):
 	translation = start_position
 	player = the_player
-	hp = base_max_hp * hp_mult
+	
+	var type_definition = stats[a_enemy_type]
+	
+	base_max_hp = type_definition["base_hp"]
+	hp = type_definition["base_hp"]
+	base_damage = type_definition["base_damage"]
+	projectile_speed = type_definition["projectile_speed"]
+	speed = type_definition["speed"]
+	shot_scene = type_definition["projectile_scene"]
+	attack_cd = type_definition["attack_cd"]
+	actions = type_definition["actions"]
+	
 	enemy_type = a_enemy_type
 
 func move_towards_player():
@@ -79,8 +132,8 @@ func _process(delta):
 
 	if time_to_shot < 0:
 		if transform.origin.distance_to(player.transform.origin) < MIN_DISTANCE_TO_SHOT:
-			time_to_shot += TIME_BETWEEN_SHOTS
-			shot()
+			time_to_shot += attack_cd
+			attack()
 	else:
 		time_to_shot -= delta;
 		
@@ -94,14 +147,20 @@ func _on_Main_game_start():
 func _on_Main_game_over():
 	stop = true
 
-func shot():
-	if enemy_type == 0:
-		var shot = shot_scene.instance()
-		get_tree().get_root().add_child(shot)
-		shot.initialize(translation, player.transform.origin, 0)
-	else:
+func attack():
+	if enemy_type == EnemyType.RANGED:
+		spawn_projectile(player.transform.origin)
+	elif enemy_type == EnemyType.RANGED_ELITE:
 		for n in range(0,360,45):
-			var shot = shot_scene.instance()
-			get_tree().get_root().add_child(shot)
-			shot.initialize(translation, translation + Vector3.FORWARD.rotated(Vector3.UP, n*TAU/360.0), 0)
-			
+			spawn_projectile(translation + Vector3.FORWARD.rotated(Vector3.UP, n*TAU/360.0))
+	elif enemy_type == EnemyType.MELEE:
+		# TODO(Marce): Local attack
+		pass
+	elif enemy_type == EnemyType.MELEE_ELITE:
+		# TODO(Marce): Hook
+		pass
+
+func spawn_projectile(target_position):
+	var shot = shot_scene.instance()
+	get_tree().get_root().add_child(shot)
+	shot.initialize(self, translation, target_position, base_damage, projectile_speed, actions)
