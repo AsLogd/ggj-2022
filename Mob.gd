@@ -36,7 +36,7 @@ var stats = {
 	EnemyType.MELEE_ELITE: {
 		"base_hp": 120,
 		"base_damage": 120,
-		"projectile_speed": 1,
+		"projectile_speed": 1.5,
 		"speed": 14,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
 		"attack_cd": 5,
@@ -180,8 +180,7 @@ func attack():
 		# TODO(Marce): Local attack
 		pass
 	elif enemy_type == EnemyType.MELEE_ELITE:
-		# TODO(Marce): Hook
-		pass
+		spawn_projectile(player.transform.origin)
 
 func spawn_projectile(target_position):
 	var shot = shot_scene.instance()
