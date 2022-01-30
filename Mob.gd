@@ -13,7 +13,7 @@ var stats = {
 		"speed": 10,
 		"projectile_scene": ResourceLoader.load("Shot.tscn"),
 		"attack_cd": 1,
-		"actions": ["damage", "drag"]
+		"actions": ["damage"]
 	},
 	EnemyType.RANGED_ELITE: {
 		"base_hp": 60,
@@ -22,6 +22,7 @@ var stats = {
 		"speed": 12,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
 		"attack_cd": 2,
+		"actions": ["damage"]
 	},
 	EnemyType.MELEE: {
 		"base_hp": 80,
@@ -29,6 +30,8 @@ var stats = {
 		"projectile_speed": null,
 		"speed": 12,
 		"projectile_scene": null,
+		"attack_cd": 1,
+		"actions": ["damage"]
 	},
 	EnemyType.MELEE_ELITE: {
 		"base_hp": 120,
@@ -36,7 +39,8 @@ var stats = {
 		"projectile_speed": 1,
 		"speed": 14,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
-		"attack_cd": 5
+		"attack_cd": 5,
+		"actions": ["damage", "drag"]
 	}
 }
 
