@@ -33,4 +33,5 @@ material/0 = SubResource( 1 )
 material/0 = SubResource( 1 )
 
 [node name="pPlane1" parent="RootNode" index="4"]
+transform = Transform( 1.12655, 0, 0, 0, 1, 0, 0, 0, 1.12655, 0, 0, 0 )
 material/0 = SubResource( 2 )

@@ -61,7 +61,7 @@ func _physics_process(delta):
 	direction = Vector3.ZERO
 	
 	if current_state == "dragged":
-		if (global_transform.origin - drag_target.global_transform.origin).length() < 5:
+		if !drag_target.get_ref() or (global_transform.origin - drag_target.get_ref().global_transform.origin).length() < 5:
 			current_state = "normal"
 			invulnerable = false
 			return
@@ -78,7 +78,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
 func dragged_movement(delta):
-	direction = (drag_target.global_transform.origin - global_transform.origin).normalized()
+	direction = (drag_target.get_ref().global_transform.origin - global_transform.origin).normalized()
 	speed_multiplier = 3.0
 	
 func normal_movement(delta):
@@ -147,7 +147,7 @@ func target_and_shoot():
 			look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
 		look_at = global_transform.origin + look_direction.normalized()*10
 	else:
-		var camera = get_node("Cam/Camera")
+		var camera = get_viewport().get_camera()
 		var from = camera.project_ray_origin(mouse_pos)
 		var to = from + camera.project_ray_normal(mouse_pos) * 10000
 		look_at = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
@@ -196,7 +196,7 @@ func drag_to(target):
 	if current_state != "dragged":
 		current_state = "dragged"
 		invulnerable = true
-		drag_target = target
+		drag_target = weakref(target)
 
 func get_multi():
 	if current_hp == 0:

@@ -22,13 +22,6 @@ transform = Transform( 75.2827, 0, 0, 0, 75.2827, 0, 0, 0, 75.2827, 0, 0, 0 )
 transform = Transform( 2.14243, 0, 0, 0, 2.14243, 0, 0, 0, 2.14243, 0, 0.914628, 0 )
 shape = SubResource( 1 )
 
-[node name="Cam" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.865073, -0.501647, 0, 0.501647, 0.865073, 0, -2.33247, 8.73141 )
-
-[node name="Camera" type="Camera" parent="Cam"]
-transform = Transform( 1, 0, 0, 0, 0.15459, 0.987978, 0, -0.987978, 0.15459, 0, 23.4306, -8.88977 )
-current = true
-
 [node name="Target" type="Position3D" parent="."]
 
 [node name="TargetSprite" type="Sprite3D" parent="Target"]
