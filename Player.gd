@@ -126,8 +126,6 @@ func normal_movement(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
-		
-	speed_multiplier = 1.0
 	
 func target_and_shoot():
 	var look_at = null
