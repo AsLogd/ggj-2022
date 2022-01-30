@@ -42,10 +42,12 @@ func add_score(s):
 func _on_MobTimer_timeout():
 	if(playing):
 		find_node("Spawner").spawn()
+		
+func _on_game_start():
+	score = 0
 
 func _on_Player_dies():
 	emit_signal("game_over")
-	score = 0
 	multi = 1
 	playing = false
 	get_node("GameOverLabel").percent_visible = 1
