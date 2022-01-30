@@ -58,7 +58,6 @@ func move_towards_player():
 	look_at(player.global_transform.origin, Vector3.UP)
 	velocity = Vector3.FORWARD * speed
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
-	print("TOWARDS PLAYER", velocity)
 	
 func move_randomly():
 	if time_to_change_direction < 0:
