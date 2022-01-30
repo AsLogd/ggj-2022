@@ -22,7 +22,7 @@ var stats = {
 		"projectile_speed": 0.5,
 		"speed": 12,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
-		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
+		"base_scene": ResourceLoader.load("enemy_fish_elite.tscn"),
 		"attack_cd": 2,
 		"actions": ["damage"]
 	},
@@ -42,7 +42,7 @@ var stats = {
 		"projectile_speed": 1,
 		"speed": 14,
 		"projectile_scene": ResourceLoader.load("Hook.tscn"),
-		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
+		"base_scene": ResourceLoader.load("enemy_fish_elite.tscn"),
 		"attack_cd": 5,
 		"actions": ["damage", "drag"]
 	}
