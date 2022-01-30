@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://arena_obj_b.tscn" type="PackedScene" id=10]
 [ext_resource path="res://arena_obj_a2.tscn" type="PackedScene" id=11]
 [ext_resource path="res://MobCircle.tscn" type="PackedScene" id=12]
+[ext_resource path="res://MoodController.gd" type="Script" id=13]
 
 [sub_resource type="BoxShape" id=5]
 
@@ -232,6 +233,11 @@ percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MoodController" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="BGM_player_1" type="AudioStreamPlayer" parent="MoodController"]
 
 [connection signal="game_over" from="." to="Map/Spawner" method="_on_Main_game_over"]
 [connection signal="game_start" from="." to="Player" method="_on_Main_game_start"]
