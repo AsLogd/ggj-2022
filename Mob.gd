@@ -194,7 +194,7 @@ func attack():
 			player.hit(base_damage)
 			pass
 	elif enemy_type == EnemyType.MELEE_ELITE:
-		if (player.global_transform.origin - global_transform.origin).length() < 5:
+		if (player.global_transform.origin - global_transform.origin).length() < 9:
 			player.hit(base_damage)
 		spawn_projectile(player.transform.origin)
 
