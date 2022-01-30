@@ -57,7 +57,7 @@ func _physics_process(delta):
 			dash_available = true
 
 	shot_cooldown -= delta
-	
+
 	# We check for each move input and update the direction accordingly.
 	if Input.is_action_pressed("move_right"):
 		direction.z -= 1
@@ -72,23 +72,23 @@ func _physics_process(delta):
 
 	var x_axis = Input.get_axis("move_left", "move_right")
 	var z_axis = Input.get_axis("move_back", "move_forward")
-	
+
 	if x_axis != 0 and z_axis != 0:
 		direction.z = x_axis
 		direction.x = z_axis
-	
+
 	if Input.is_action_pressed("dash") and dash_available:
 		dash_cooldown = dash_refresh
 		dash_left = dash_duration
 		dash_available = false
-		
+
 	target_and_shoot()
 
 	dash_left -= delta
 
 	if dash_left >= 0.0:
 		speed_multiplier = dash_multiplier
-		
+
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
