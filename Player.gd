@@ -202,17 +202,18 @@ func get_multi():
 	if current_hp == 0:
 		return 0
 	
-	if current_hp > 80:
+	var percentage = current_hp/max_hp * 100
+	if percentage > 80:
 		return 1
-	if current_hp > 70:
+	if percentage > 70:
 		return 2
-	if current_hp > 50:
+	if percentage > 50:
 		return 3
-	if current_hp > 30:
+	if percentage > 30:
 		return 4
-	if current_hp > 20:
+	if percentage > 20:
 		return 8
-	if current_hp > 1:
+	if percentage > 1:
 		return 10
 
 func _on_Main_game_start():
