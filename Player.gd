@@ -220,7 +220,6 @@ func _on_Main_game_start():
 	current_hp = max_hp
 	current_damage = 0
 
-
 func _on_HealthPowerUp_pickup(quantity):
 	print("Health picked up: ", quantity)
 	current_hp += quantity
