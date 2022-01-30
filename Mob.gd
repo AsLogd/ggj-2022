@@ -32,7 +32,7 @@ var stats = {
 		"projectile_speed": null,
 		"speed": 20,
 		"projectile_scene": null,
-		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
+		"base_scene": ResourceLoader.load("chef_enemy.tscn"),
 		"attack_cd":0.5,
 		"actions": ["damage"]
 	},
@@ -42,7 +42,7 @@ var stats = {
 		"projectile_speed": 1.5,
 		"speed": 14,
 		"projectile_scene": ResourceLoader.load("ShotHook.tscn"),
-		"base_scene": ResourceLoader.load("enemy_fish_elite.tscn"),
+		"base_scene": ResourceLoader.load("chef_enemy_elite.tscn"),
 		"attack_cd": 5,
 		"actions": ["drag"]
 	}
@@ -138,9 +138,9 @@ func initialize(start_position, the_player, a_enemy_type = 0):
 	enemy_type = a_enemy_type
 	var mesh = type_definition["base_scene"].instance()
 	get_node("Pivot").add_child(mesh)
-	var anim = get_node("Pivot/enemy_fish/AnimationPlayer")
-	anim.get_animation("Core|Take 001|BaseLayer").set_loop(true)
-	anim.play("Core|Take 001|BaseLayer")
+	var anim = get_node("Pivot/enemy/AnimationPlayer")
+	anim.get_animation("swim").set_loop(true)
+	anim.play("swim")
 	
 
 func move_towards_player():
