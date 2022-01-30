@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bgm_uneasy.wav-907bd4300e9e3b9a93923be1caccb2d4.sample"
+
+[deps]
+
+source_file="res://sound/bgm_uneasy.wav"
+dest_files=[ "res://.import/bgm_uneasy.wav-907bd4300e9e3b9a93923be1caccb2d4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0
