@@ -58,6 +58,11 @@ var velocity = Vector3.ZERO
 var enemy_type
 var player
 
+export (PackedScene) var drop_1
+# 1/5 change of dropping 1
+export var drop_list = [0,0,0,0,1]
+
+
 enum MovementPattern { RANDOM_MOVE, TOWARDS_PLAYER }
 
 # Stats
@@ -72,11 +77,25 @@ var actions
 
 var stop = false
 
+func drop():
+	drop_list.shuffle()
+	var item_num = drop_list[0]
+	var instance 
+	match(item_num):
+		1: 
+			instance = drop_1.instance()
+	
+	if(instance):
+		var main = get_node("/root/Main")
+		instance.transform = transform
+		main.add_child(instance)
+
 func hit(damage):
 	hp -= damage
 	if hp <= 0:
 		var main = get_node("/root/Main")
 		main.add_score(100 if enemy_type == 0 else 300)
+		drop()
 		queue_free()
 	
 func _ready():
