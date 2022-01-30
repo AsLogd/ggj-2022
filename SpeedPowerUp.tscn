@@ -1,12 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://PowerUp.gd" type="Script" id=1]
 [ext_resource path="res://RotateSpatial.gd" type="Script" id=2]
-
-[sub_resource type="SphereMesh" id=3]
-
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0.996078, 0.894118, 0.0745098, 1 )
+[ext_resource path="res://thunder.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SphereShape" id=2]
 
@@ -16,10 +12,7 @@ type = 2
 
 [node name="Pivot" type="Position3D" parent="."]
 
-[node name="MeshInstance" type="MeshInstance" parent="Pivot"]
-mesh = SubResource( 3 )
-skeleton = NodePath("../../Area/CollisionShape")
-material/0 = SubResource( 4 )
+[node name="thunder" parent="Pivot" instance=ExtResource( 3 )]
 script = ExtResource( 2 )
 
 [node name="Area" type="Area" parent="."]
