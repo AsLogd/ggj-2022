@@ -3,24 +3,23 @@
 [ext_resource path="res://PowerUp.gd" type="Script" id=1]
 [ext_resource path="res://RotateSpatial.gd" type="Script" id=2]
 
-[sub_resource type="PrismMesh" id=1]
+[sub_resource type="SphereMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.886275, 0.321569, 0.321569, 1 )
-metallic = 0.39
-metallic_specular = 0.75
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.996078, 0.894118, 0.0745098, 1 )
 
 [sub_resource type="SphereShape" id=2]
 
-[node name="HealthPowerUp" type="Spatial"]
+[node name="SpeedPowerUp" type="Spatial"]
 script = ExtResource( 1 )
+type = 2
 
 [node name="Pivot" type="Position3D" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Pivot"]
-mesh = SubResource( 1 )
+mesh = SubResource( 3 )
 skeleton = NodePath("../../Area/CollisionShape")
-material/0 = SubResource( 3 )
+material/0 = SubResource( 4 )
 script = ExtResource( 2 )
 
 [node name="Area" type="Area" parent="."]

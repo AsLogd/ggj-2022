@@ -221,6 +221,13 @@ func _on_Main_game_start():
 	current_hp = max_hp
 	current_damage = 0
 
-func _on_HealthPowerUp_pickup(quantity):
-	print("Health picked up: ", quantity)
-	current_hp += quantity
+export var health_pickup = 20
+export var speed_pickup = 5
+func _on_PowerUp_pickup(type):
+	match type:
+		1:
+			print("Health up: ", health_pickup)
+			max_hp += health_pickup
+		2:
+			print("Speed up: ", speed_pickup)
+			speed += speed_pickup

@@ -67,6 +67,7 @@ var enemy_type
 var player
 
 export (PackedScene) var drop_1
+export (PackedScene) var drop_2
 # 1/5 change of dropping 1
 export var drop_list = [0,0,0,0,1]
 
@@ -92,6 +93,8 @@ func drop():
 	match(item_num):
 		1: 
 			instance = drop_1.instance()
+		2: 
+			instance = drop_2.instance()	
 	
 	if(instance):
 		var main = get_node("/root/Main")
