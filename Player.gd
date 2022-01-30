@@ -108,7 +108,7 @@ func target_and_shoot():
 	var look_direction = last_look_direction
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-	if last_mouse_position != null and (last_mouse_position - mouse_pos).length() > .1:
+	if last_mouse_position == null or (last_mouse_position - mouse_pos).length() > .1:
 		var camera = get_node("Cam/Camera")
 		var from = camera.project_ray_origin(mouse_pos)
 		var to = from + camera.project_ray_normal(mouse_pos) * 10000
@@ -140,7 +140,7 @@ func target_and_shoot():
 			var shot = player_shot_scene.instance()
 			get_tree().get_root().add_child(shot)
 			shot.initialize(translation, look_at, current_damage)
-	
+
 func _process(delta):
 	if(dead):
 		return
@@ -161,11 +161,10 @@ func _process(delta):
 	
 	if dash_cooldown > 0.0:
 		emit_signal("update_dash_cd", (float(dash_refresh) - dash_cooldown) / float(dash_refresh))
-	
+
 func hit(damage):
 	if dash_left <= 0.0:
 		current_hp -= damage
-
 
 func get_multi():
 	if current_hp == 0:
@@ -183,7 +182,6 @@ func get_multi():
 		return 8
 	if current_hp > 1:
 		return 10
-		
 
 func _on_Main_game_start():
 	dead = false
