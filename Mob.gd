@@ -54,17 +54,29 @@ func initialize(start_position, the_player, a_enemy_type = 0, hp_mult = 1):
 	hp = base_max_hp * hp_mult
 	enemy_type = a_enemy_type
 
-func _process(delta):
-	if(stop):
-		return
-	time_to_change_direction-= delta;
-
+func move_towards_player():
+	look_at(player.global_transform.origin, Vector3.UP)
+	velocity = Vector3.FORWARD * speed
+	velocity = velocity.rotated(Vector3.UP, rotation.y)
+	
+func move_randomly():
 	if time_to_change_direction < 0:
 		rotate_object_local(Vector3.UP, rand_range(0,TAU))
 		velocity = Vector3.FORWARD * speed
 		velocity = velocity.rotated(Vector3.UP, rotation.y)
 		time_to_change_direction += rand_range(MIN_TIME_TO_CHANGE_DIRECTION, MAX_TIME_TO_CHANGE_DIRECTION)
-		
+
+func _process(delta):
+	if(stop):
+		return
+	time_to_change_direction -= delta;
+	time_to_change_movement_pattern -= delta;
+	
+	if movement_pattern == MovementPattern.TOWARDS_PLAYER:
+		move_towards_player()
+	if movement_pattern == MovementPattern.RANDOM_MOVE:
+		move_randomly()
+
 	if time_to_shot < 0:
 		if transform.origin.distance_to(player.transform.origin) < MIN_DISTANCE_TO_SHOT:
 			time_to_shot += TIME_BETWEEN_SHOTS
@@ -74,6 +86,7 @@ func _process(delta):
 		
 	if time_to_change_movement_pattern < 0:
 		movement_pattern = MovementPattern.values()[randi()%MovementPattern.values().size()]
+		time_to_change_movement_pattern = rand_range(1, 5)
 
 func _on_Main_game_start():
 	queue_free()
