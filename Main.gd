@@ -36,7 +36,6 @@ func _ready():
 	randomize()
 	find_node("Spawner").spawn()
 
-
 func add_score(s):
 	score += s*multi
 

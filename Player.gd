@@ -3,7 +3,7 @@ extends KinematicBody
 export (PackedScene) var player_shot_scene
 
 # How fast the player moves in meters per second.
-export var speed = 14
+export var speed = 20
 # The downward acceleration when in the air, in meters per second squared.
 export var fall_acceleration = 75
 
@@ -12,7 +12,7 @@ export var heal_per_second = 3
 export var max_hp = 100
 
 # In seconds
-export var dash_refresh = 5
+export var dash_refresh = 2
 export var dash_multiplier = 10
 export var dash_duration = 0.1
 
@@ -26,6 +26,7 @@ var dash_available = true
 var dash_cooldown = 0
 var dash_left = 0
 
+var look_direction = Vector3.ZERO
 var velocity = Vector3.ZERO
 var rng = RandomNumberGenerator.new()
 
@@ -33,8 +34,17 @@ var shot_cooldown = -1
 
 var current_direction = Vector3.ZERO
 var last_mouse_position = null
-var last_look_direction = null
-var last_look_at = null
+var using_gamepad = true
+
+var current_state = "normal"
+
+var invulnerable = false
+
+# Dragging
+var drag_target = null
+
+var direction = Vector3.ZERO
+var speed_multiplier = 1.0
 
 signal update_health_and_damage(new_damage, new_health)
 signal update_dash_cd()
@@ -47,10 +57,33 @@ func _ready():
 func _physics_process(delta):
 	if(dead):
 		return
-	# We create a local variable to store the input direction.
-	var direction = Vector3.ZERO
-	var speed_multiplier = 1.0
+		
+	direction = Vector3.ZERO
 	
+	if current_state == "dragged":
+		if !drag_target.get_ref() or (global_transform.origin - drag_target.get_ref().global_transform.origin).length() < 5:
+			current_state = "normal"
+			invulnerable = false
+			return
+			
+		dragged_movement(delta)
+	elif current_state == "normal":
+		normal_movement(delta)
+		
+	velocity.x = direction.x * speed * speed_multiplier
+	velocity.z = direction.z * speed * speed_multiplier
+	# Vertical velocity
+	velocity.y -= fall_acceleration * delta
+	# Moving the character
+	velocity = move_and_slide(velocity, Vector3.UP)
+	
+func dragged_movement(delta):
+	direction = (drag_target.get_ref().global_transform.origin - global_transform.origin).normalized()
+	speed_multiplier = 3.0
+	
+func normal_movement(delta):
+	# We create a local variable to store the input direction.
+	speed_multiplier = 1.0
 	if not dash_available:
 		dash_cooldown -= delta
 		
@@ -65,16 +98,17 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_left"):
 		direction.x -= 1
 	if Input.is_action_pressed("move_back"):
-		# Notice how we are working with the vector's x and z axes.
-		# In 3D, the XZ plane is the ground plane.
 		direction.z += 1
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= 1
 
-	var x_axis = Input.get_axis("move_left", "move_right")
-	var z_axis = Input.get_axis("move_forward", "move_back")
+	var x_axis = Input.get_axis("joy_move_left", "joy_move_right")
+	var z_axis = Input.get_axis("joy_move_forward", "joy_move_back")
 	
-	if x_axis != 0 and z_axis != 0:
+	if abs(x_axis) > 0.1 or abs(z_axis) > 0.1:
+		using_gamepad = true
+		
+	if using_gamepad:
 		direction.x = x_axis
 		direction.z = z_axis
 	
@@ -93,46 +127,37 @@ func _physics_process(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		current_direction = translation + direction
-
-	velocity.x = direction.x * speed * speed_multiplier
-	velocity.z = direction.z * speed * speed_multiplier
-	# Vertical velocity
-	velocity.y -= fall_acceleration * delta
-	# Moving the character
-	velocity = move_and_slide(velocity, Vector3.UP)
-	
-	speed_multiplier = 1.0
 	
 func target_and_shoot():
 	var look_at = null
-	var look_direction = last_look_direction
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-	if last_mouse_position != null and (last_mouse_position - mouse_pos).length() > .1:
-		var camera = get_node("Cam/Camera")
+	if last_mouse_position == null or (last_mouse_position - mouse_pos).length() > .1:
+		using_gamepad = false
+	
+	var look_at_z = Input.get_axis("attack_forward", "attack_back")
+	var look_at_x = Input.get_axis("attack_left", "attack_right")
+	
+	if abs(look_at_z) > 0.1 or abs(look_at_x) > 0.1:
+		using_gamepad = true
+		
+	
+	if using_gamepad:
+		if look_at_z != 0 or look_at_x != 0:
+			look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
+		look_at = global_transform.origin + look_direction.normalized()*10
+	else:
+		var camera = get_viewport().get_camera()
 		var from = camera.project_ray_origin(mouse_pos)
 		var to = from + camera.project_ray_normal(mouse_pos) * 10000
 		look_at = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
 		
 	last_mouse_position = mouse_pos
-		
-	var look_at_z = Input.get_axis("attack_forward", "attack_back")
-	var look_at_x = Input.get_axis("attack_left", "attack_right")
 	
-	if look_at_z != 0 and look_at_x != 0:
-		look_direction = Vector3(look_at_x, global_transform.origin.y, look_at_z) * 10
-		look_at = global_transform.origin + look_direction
-		
-	if look_at == null:
-		look_at = last_look_at
-		
-	last_look_at = look_at
-		
 	var target = get_node("Target")
 	if look_at != null:
 		target.global_transform.origin = look_at
 		$animated_fish.look_at(look_at, Vector3.UP)
-		last_look_direction = look_direction
 		
 	if Input.is_action_pressed("attack"):
 		if shot_cooldown <= 0:
@@ -140,7 +165,7 @@ func target_and_shoot():
 			var shot = player_shot_scene.instance()
 			get_tree().get_root().add_child(shot)
 			shot.initialize(translation, look_at, current_damage)
-	
+
 func _process(delta):
 	if(dead):
 		return
@@ -161,11 +186,17 @@ func _process(delta):
 	
 	if dash_cooldown > 0.0:
 		emit_signal("update_dash_cd", (float(dash_refresh) - dash_cooldown) / float(dash_refresh))
-	
-func hit(damage):
-	if dash_left <= 0.0:
-		current_hp -= damage
 
+func hit(damage):
+	if not invulnerable:
+		if dash_left <= 0.0:
+			current_hp -= damage
+		
+func drag_to(target):
+	if current_state != "dragged":
+		current_state = "dragged"
+		invulnerable = true
+		drag_target = weakref(target)
 
 func get_multi():
 	if current_hp == 0:
@@ -183,10 +214,20 @@ func get_multi():
 		return 8
 	if current_hp > 1:
 		return 10
-		
 
 func _on_Main_game_start():
 	dead = false
 	transform.origin = Vector3(0, 0, 0)
 	current_hp = max_hp
 	current_damage = 0
+
+export var health_pickup = 20
+export var speed_pickup = 5
+func _on_PowerUp_pickup(type):
+	match type:
+		1:
+			print("Health up: ", health_pickup)
+			max_hp += health_pickup
+		2:
+			print("Speed up: ", speed_pickup)
+			speed += speed_pickup

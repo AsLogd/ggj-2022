@@ -3,8 +3,8 @@ extends Spatial
 export (PackedScene) var mob_scene
 
 export var mobs_per_wave = 10
-export var wave_interval = 30
-export var grace_interval = 5
+export var wave_interval = 25
+export var grace_interval = 3
 export var base_elite_chance = 0.1
 
 # Scaling settings
