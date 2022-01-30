@@ -12,7 +12,7 @@ var stats = {
 		"projectile_speed": 0.3,
 		"speed": 10,
 		"projectile_scene": ResourceLoader.load("Shot.tscn"),
-		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
+		"base_scene": ResourceLoader.load("chef_enemy.tscn"),
 		"attack_cd": 1,
 		"actions": ["damage"]
 	},
@@ -32,7 +32,7 @@ var stats = {
 		"projectile_speed": null,
 		"speed": 20,
 		"projectile_scene": null,
-		"base_scene": ResourceLoader.load("chef_enemy.tscn"),
+		"base_scene": ResourceLoader.load("enemy_fish.tscn"),
 		"attack_cd":0.5,
 		"actions": ["damage"]
 	},
@@ -190,7 +190,7 @@ func attack():
 		for n in range(0,360,45):
 			spawn_projectile(translation + Vector3.FORWARD.rotated(Vector3.UP, n*TAU/360.0))
 	elif enemy_type == EnemyType.MELEE:
-		if (player.global_transform.origin - global_transform.origin).length() < 5:
+		if (player.global_transform.origin - global_transform.origin).length() < 9:
 			player.hit(base_damage)
 			pass
 	elif enemy_type == EnemyType.MELEE_ELITE:
