@@ -3,7 +3,7 @@ extends KinematicBody
 export (PackedScene) var player_shot_scene
 
 # How fast the player moves in meters per second.
-export var speed = 14
+export var speed = 20
 # The downward acceleration when in the air, in meters per second squared.
 export var fall_acceleration = 75
 
@@ -12,7 +12,7 @@ export var heal_per_second = 3
 export var max_hp = 100
 
 # In seconds
-export var dash_refresh = 5
+export var dash_refresh = 2
 export var dash_multiplier = 10
 export var dash_duration = 0.1
 

@@ -21,7 +21,7 @@ normal_scale = 1.0
 normal_texture = ExtResource( 3 )
 
 [node name="enemy_fish" instance=ExtResource( 5 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1.7, 0, -2.56693e-07, 0, 1.7, 0, 2.56693e-07, 0, -1.7, 0, 0, 0 )
 
 [node name="Shark_Player" parent="Core/Skeleton" index="0"]
 material/0 = SubResource( 1 )
